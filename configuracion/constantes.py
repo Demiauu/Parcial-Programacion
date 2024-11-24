@@ -12,8 +12,9 @@ ALTO = 500
 VENTANA = (ANCHO,ALTO)
 FPS = 60
 
+TAMAÑO_BOTON = (200,50)
+
 #Agrege el temaño de lo botones de opciones 🌹
-TAMAÑO_BOTON = (100,60)
 TAMAÑO_PREGUNTA = (350,150)
 TAMAÑO_RESPUESTA = (250,60)
 TAMAÑO_BOTON_VOLUMEN = (80,40)
