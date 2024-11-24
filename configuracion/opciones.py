@@ -25,20 +25,23 @@ boton_volver["superficie"].fill(COLOR_AZUL)
 
 def mostrar_opciones(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event],datos_juego:dict) -> str:
     retorno = "opciones"
-
+    pygame.mixer.music.set_volume(datos_juego["volumen_juego"]/100)
+    pygame.mixer.music.set_volume(datos_juego["volumen_clicks"]/100)
     for evento in cola_eventos:
         if evento.type == pygame.QUIT:
             retorno = "salir"
         elif evento.type == pygame.MOUSEBUTTONDOWN:
             if boton_suma["rectangulo"].collidepoint(evento.pos):
-                if datos_juego["volumen_juego"] < 100:
+                if datos_juego['volumen_juego'] < 100:
                     print("Sube el Volumen")
-                    datos_juego["volumen_juego"] += 5
+                    datos_juego['volumen_juego'] += 5
+                    datos_juego['volumen_clicks'] += 5
                 SONIDO_CLICK.play()
             elif boton_resta["rectangulo"].collidepoint(evento.pos):
-                if datos_juego["volumen_juego"] > 0:
+                if datos_juego['volumen_juego'] > 0:
                     print("Baja el Volumen")                    
-                    datos_juego["volumen_juego"] -= 5
+                    datos_juego['volumen_juego'] -= 5
+                    datos_juego['volumen_clicks'] -= 5
                 SONIDO_CLICK.play()
             elif boton_volver["rectangulo"].collidepoint(evento.pos):
                 print("Vuelve al menú")
@@ -52,6 +55,6 @@ def mostrar_opciones(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Even
     mostrar_texto(boton_suma["superficie"],"Volumen +",(5,15),fuente_boton,COLOR_NEGRO)
     mostrar_texto(boton_resta["superficie"],"Volumen -",(5,15),fuente_boton,COLOR_NEGRO)
     mostrar_texto(boton_volver["superficie"],"Volver",(15,15),fuente_boton,COLOR_BLANCO)
-    mostrar_texto(pantalla,f"{datos_juego["volumen_juego"]}%",(310,250),fuente_volumen,COLOR_NEGRO)
+    mostrar_texto(pantalla,f"{datos_juego['volumen_juego']}%",(310,250),fuente_volumen,COLOR_NEGRO)
 
     return retorno

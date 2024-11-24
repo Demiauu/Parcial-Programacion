@@ -23,12 +23,17 @@ def mostrar_menu(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event]) 
     for evento in cola_eventos:
         if evento.type == pygame.MOUSEMOTION:
             print(evento.pos)
-        if evento.type == pygame.QUIT:
-            retorno = "salir"
+        #agrego boton de salir 👻
+        if evento.type == pygame.MOUSEBUTTONDOWN:
+            if boton_salir["rectangulo"].collidepoint(evento.pos):
+                retorno = "salir"
         #Agrege el boton opciones para que funcione 🌹
-        elif evento.type == pygame.MOUSEBUTTONDOWN:
+        if evento.type == pygame.MOUSEBUTTONDOWN:
             if boton_opciones["rectangulo"].collidepoint(evento.pos):
                 retorno = "opciones"
+    #////////////////////////////////////
+        if evento.type == pygame.QUIT:
+            retorno = "salir"
     #actualizar el juego
 
     #dibujar fondo 
