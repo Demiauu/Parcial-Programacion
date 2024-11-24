@@ -7,7 +7,7 @@ pygame.init()
 fondo_original = pygame.image.load("imagenes/menu.jpg")
 fondo = pygame.transform.scale(fondo_original, (700,500))
 
-fuente_menu = pygame.font.SysFont("Pixel Operator 8",30)
+fuente_menu = pygame.font.SysFont("Arial Narrow",30)
 
 boton_jugar = crear_boton(TAMAÑO_BOTON,"imagenes/My-img8bit-com-Effect.jpg")
 boton_ranking = crear_boton(TAMAÑO_BOTON,"imagenes/My-img8bit-com-Effect.jpg")
@@ -23,6 +23,10 @@ def mostrar_menu(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event]) 
     for evento in cola_eventos:
         if evento.type == pygame.QUIT:
             retorno = "salir"
+        #Agrege el boton opciones para que funcione 🌹
+        elif evento.type == pygame.MOUSEBUTTONDOWN:
+            if boton_opciones["rectangulo"].collidepoint(evento.pos):
+                retorno = "opciones"
     #actualizar el juego
 
     #dibujar fondo 
