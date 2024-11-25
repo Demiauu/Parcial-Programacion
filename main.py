@@ -2,6 +2,8 @@ import pygame
 from configuracion import (
     audio,
     menu,
+    jugar,
+    pausa,
     constantes,
     funciones,
     controles,
@@ -30,13 +32,21 @@ while corriendo:
     Reloj.tick(constantes.FPS)  
     cola_eventos = pygame.event.get()
     #eventos 
+    pantalla.fill(constantes.COLOR_BLANCO)
+    #se agrega el menu principal 👻
     if ventana_actual == "menu":
         ventana_actual = menu.mostrar_menu(pantalla,cola_eventos)
         #se escuche otra musica adentro de menú.🌹
         audio.reproducir_musica(ventana_actual,datos_juego)
+    #se agrega la ventana jugar 👻
     elif ventana_actual == "jugar":
         pass
     #Con esto muestra las opciones para configurar el sonido.🌹
+        ventana_actual = jugar.mostrar_jugar(pantalla,cola_eventos)
+        audio.reproducir_musica(ventana_actual,datos_juego)
+    elif ventana_actual == "pausa":
+        ventana_actual = pausa.mostrar_pausa(pantalla,cola_eventos)
+    #Con esto muestra las opciones para configurar el sonido 🌹
     elif ventana_actual == "opciones":
         ventana_actual = opciones.mostrar_opciones(pantalla,cola_eventos,datos_juego)
         #se escuche otra musica adentro de opciones.🌹
