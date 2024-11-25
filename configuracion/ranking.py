@@ -7,7 +7,7 @@ pygame.init()
 fondo_original = pygame.image.load("imagenes/menu_raw.png")
 fondo = pygame.transform.scale(fondo_original, (702,502))
 
-fuente_menu = pygame.font.SysFont("Arial Narrow",30)
+fuente_menu = pygame.font.SysFont("Pixel Operator 8",30)
 
 #creo los botones llamando a la funcion de crear botones👻
 boton_atras = crear_boton((70,30),"imagenes/boton_atras.png")

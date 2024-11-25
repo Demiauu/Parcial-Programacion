@@ -4,13 +4,13 @@ from .funciones import mostrar_texto
 
 #Todo este codigo es para que la ventana de opciones funcione bien.🌹
 
-fondo_opciones = pygame.image.load("imagenes/icono.png")
+fondo_opciones = pygame.image.load("imagenes/pausa_raw.png")
 fondo = pygame.transform.scale(fondo_opciones, (702,502))
 
 pygame.init()
 
-fuente_boton = pygame.font.SysFont("Arial Narrow",20)
-fuente_volumen = pygame.font.SysFont("Arial Narrow",50)
+fuente_boton = pygame.font.SysFont("Pixel Operator 8",20)
+fuente_volumen = pygame.font.SysFont("Pixel Operator 8",50)
 
 boton_suma = {}
 boton_suma["superficie"] = pygame.Surface(TAMAÑO_BOTON_VOLUMEN)
@@ -70,8 +70,6 @@ def mostrar_opciones(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Even
                 retorno = "menu"
             elif boton_controles["rectangulo"].collidepoint(evento.pos):
                 #detiene la musica para reproducir nueva 👻.
-                if pygame.mixer.music.get_busy():
-                    pygame.mixer.music.stop()
                 CLICK_SOUND.play()
                 retorno = "controles"
         # Se agrego la funcion de subir y bajar el volumen con las flechas del teclado.🌹
