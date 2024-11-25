@@ -26,7 +26,7 @@ def mostrar_menu(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event]) 
         if evento.type == pygame.QUIT:
             retorno = "salir"
         #Agrege el boton opciones para que funcione 🌹
-        elif evento.type == pygame.MOUSEBUTTONDOWN:
+        if evento.type == pygame.MOUSEBUTTONDOWN:
             if boton_opciones["rectangulo"].collidepoint(evento.pos):
                 retorno = "opciones"
 
