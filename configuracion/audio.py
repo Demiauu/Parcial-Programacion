@@ -1,4 +1,5 @@
 import pygame
+from .constantes import *
 
 def reproducir_musica(ventana_actual, datos_juego):
     """esta funcion recibe en que ventana estamos, los datos del juego y reproduce musica dependiendo en que ventana estamos ahora. 👻"""

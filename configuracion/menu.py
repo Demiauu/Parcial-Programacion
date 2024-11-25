@@ -18,7 +18,7 @@ boton_salir = crear_boton((70,30),"imagenes/boton_salir.png")
 
 def mostrar_menu(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event]) -> str:
     """esta funcion dibuja el menu al llamarla, recibe como primer parametro las dimensiones de la pantalla, como segundo parametro la cola de eventos, devuelve un string. 👻"""
-    
+
     retorno = "menu"
 
     #manejo de eventos
@@ -63,9 +63,7 @@ def mostrar_menu(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event]) 
                 if pygame.mixer.music.get_busy():
                     pygame.mixer.music.stop()
                 retorno = "opciones"
-                CLICK_SOUND.play()
     #////////////////////////////////////
-        #evento quit, sin esto no cierra el juego 👻
         if evento.type == pygame.QUIT:
             retorno = "salir"
     #actualizar el juego

@@ -36,7 +36,7 @@ while corriendo:
         audio.reproducir_musica(ventana_actual,datos_juego)
     elif ventana_actual == "jugar":
         pass
-    #Con esto muestro las opciones para configurar el sonido 🌹
+    #Con esto muestra las opciones para configurar el sonido 🌹
     elif ventana_actual == "opciones":
         ventana_actual = opciones.mostrar_opciones(pantalla,cola_eventos,datos_juego)
         #se escuche otra musica adentro de opciones 🌹
