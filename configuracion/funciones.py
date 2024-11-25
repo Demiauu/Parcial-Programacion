@@ -7,7 +7,24 @@ def crear_boton(tamanio:tuple,imagen:str)->dict:
     boton = {}
     imagen_original = pygame.image.load(imagen)
     boton["superficie"] = pygame.transform.scale(imagen_original, tamanio)
-    #boton["superficie"].fill(COLOR_ROJO)
+    boton["rectangulo"] = boton["superficie"].get_rect()
+
+    #guardo la misma imagen pero con otra key para usarla más tarde 👻
+    boton["imagen_vieja"] = boton["superficie"]
+    return boton
+
+def cambiar_boton(boton:dict,imagen:str,tamanio:tuple,evento:bool):
+    """esta función recibe la info del botón que vamos a modificar, imagen nueva, tamaño y el evento. devuelve el botón modificado."""
+    if "imagen_nueva" not in boton:  # Si la imagen no ha sido cargada aún
+        imagen_nueva_original = pygame.image.load(imagen)
+        boton["imagen_nueva"] = pygame.transform.scale(imagen_nueva_original, tamanio)
+    # Cambiar la imagen dependiendo del evento 👻
+    if evento:
+        boton["superficie"] = boton["imagen_nueva"]
+    else:
+        boton["superficie"] = boton["imagen_vieja"]
+
+    # Actualizar el rectángulo del botón 👻
     boton["rectangulo"] = boton["superficie"].get_rect()
     return boton
 

@@ -1,26 +1,22 @@
 import pygame
 
-pygame.mixer.init()
-
-def musica(ventana_actual,datos_juego):
+def reproducir_musica(ventana_actual, datos_juego):
     """esta funcion recibe en que ventana estamos, los datos del juego y reproduce musica dependiendo en que ventana estamos ahora. 👻"""
-    if ventana_actual == "menu" or ventana_actual:
-        #carga la musica al menu 👻
+    # si no está iniciado el mixer lo inicia 👻
+    if not pygame.mixer.get_init():
         pygame.mixer.init()
-        pygame.mixer.music.load("sonidos/League of Legends - Warriors.WAV")
-        pygame.mixer.music.set_volume(datos_juego["volumen_juego"]/100)
-        #
-        pygame.mixer.music.set_volume(datos_juego["volumen_clicks"]/100)
-        #/////////////////////////
-        pygame.mixer.music.play()
-        pygame.mixer.music.play(-1)
-    elif ventana_actual == "jugar":
-        pass
-    #Este elif es para que se escuche la musica adentro de opciones 🌹
+    # selecciona la musica dependiendo de la ventana 👻 
+    if ventana_actual == "menu":
+        ruta_musica = "sonidos/League of Legends - Warriors.WAV"
     elif ventana_actual == "opciones":
-        pygame.mixer.init()
-        pygame.mixer.music.load("sonidos/League of Legends - Warriors.WAV")
-        pygame.mixer.music.set_volume(datos_juego["volumen_juego"]/100)
-        pygame.mixer.music.set_volume(datos_juego["volumen_clicks"]/100)
-        pygame.mixer.music.play()
-        pygame.mixer.music.play(-1)
+        ruta_musica = "sonidos/musica.mp3"
+    else:
+        return  #si no hay musica sale
+    #si la musica ya está encendida no hace nda 👻
+    if pygame.mixer.music.get_busy():
+        return
+    #se carga la musica 👻
+    pygame.mixer.music.stop()
+    pygame.mixer.music.load(ruta_musica)
+    pygame.mixer.music.set_volume(datos_juego["volumen_juego"] / 100)
+    pygame.mixer.music.play(-1)  # Reproduce en bucle

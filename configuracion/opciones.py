@@ -30,7 +30,7 @@ def mostrar_opciones(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Even
     for evento in cola_eventos:
         if evento.type == pygame.QUIT:
             retorno = "salir"
-        elif evento.type == pygame.MOUSEBUTTONDOWN:
+        if evento.type == pygame.MOUSEBUTTONDOWN:
             if boton_suma["rectangulo"].collidepoint(evento.pos):
                 if datos_juego['volumen_juego'] < 100:
                     print("Sube el Volumen")
@@ -44,6 +44,9 @@ def mostrar_opciones(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Even
                     datos_juego['volumen_clicks'] -= 5
                 SONIDO_CLICK.play()
             elif boton_volver["rectangulo"].collidepoint(evento.pos):
+                #detiene la musica para reproducir nueva 👻.
+                if pygame.mixer.music.get_busy():
+                    pygame.mixer.music.stop()
                 print("Vuelve al menú")
                 SONIDO_CLICK.play()
                 retorno = "menu"
