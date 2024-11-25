@@ -50,14 +50,14 @@ def mostrar_opciones(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Even
                     datos_juego['volumen_clicks'] -= 5
                 SONIDO_CLICK.play()
             elif boton_suma_click["rectangulo"].collidepoint(evento.pos):
-                if datos_juego["volumen_clicks"] < 100:
+                if datos_juego['volumen_clicks'] < 100:
                     print("Sube el Volumen")
-                    datos_juego["volumen_clicks"] += 5
+                    datos_juego['volumen_clicks'] += 5
                 SONIDO_CLICK.play()
             elif boton_resta_click["rectangulo"].collidepoint(evento.pos):
-                if datos_juego["volumen_clicks"] > 0:
+                if datos_juego['volumen_clicks'] > 0:
                     print("Baja el Volumen")
-                    datos_juego["volumen_clicks"] -= 5
+                    datos_juego['volumen_clicks'] -= 5
                 SONIDO_CLICK.play()
             elif boton_volver["rectangulo"].collidepoint(evento.pos):
                 #detiene la musica para reproducir nueva 👻.
@@ -78,6 +78,6 @@ def mostrar_opciones(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Even
     mostrar_texto(boton_suma_click["superficie"],"Volumen +",(5,15),fuente_boton,COLOR_NEGRO)
     mostrar_texto(boton_resta_click["superficie"],"Volumen -",(5,15),fuente_boton,COLOR_NEGRO)
     mostrar_texto(boton_volver["superficie"],"Volver",(15,15),fuente_boton,COLOR_BLANCO)
-    mostrar_texto(pantalla,f"{datos_juego["volumen_juego"]}%",(310,250),fuente_volumen,COLOR_NEGRO)
-    mostrar_texto(pantalla,f"{datos_juego["volumen_clicks"]}%",(310,340),fuente_volumen,COLOR_NEGRO)
+    mostrar_texto(pantalla,f"{datos_juego['volumen_juego']}%",(310,250),fuente_volumen,COLOR_NEGRO)
+    mostrar_texto(pantalla,f"{datos_juego['volumen_clicks']}%",(310,340),fuente_volumen,COLOR_NEGRO)
     return retorno

@@ -19,5 +19,5 @@ def reproducir_musica(ventana_actual, datos_juego):
     #se carga la musica 👻
     pygame.mixer.music.stop()
     pygame.mixer.music.load(ruta_musica)
-    pygame.mixer.music.set_volume(datos_juego["volumen_juego"] / 100)
+    pygame.mixer.music.set_volume(datos_juego['volumen_juego'] / 100)
     pygame.mixer.music.play(-1)  # Reproduce en bucle
