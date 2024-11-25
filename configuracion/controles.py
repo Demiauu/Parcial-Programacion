@@ -9,8 +9,8 @@ pygame.init()
 fondo_original4 = pygame.image.load("imagenes/GaTstotW8AAlBrF.png")
 fondo = pygame.transform.scale(fondo_original4, (702,502))
 
-fuente_boton = pygame.font.SysFont("Arial Narrow",20)
-fuente_volumen = pygame.font.SysFont("Arial Narrow",50)
+fuente_boton = pygame.font.SysFont("Pixel Operator 8",20)
+fuente_volumen = pygame.font.SysFont("Pixel Operator 8",50)
 
 boton_volver = {}
 boton_volver["superficie"] = pygame.Surface(TAMAÑO_BOTON_VOLVER)
@@ -25,9 +25,6 @@ def mostrar_controles(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Eve
             retorno = "salir"
         elif evento.type == pygame.MOUSEBUTTONDOWN:
             if boton_volver["rectangulo"].collidepoint(evento.pos):
-                #detiene la musica para reproducir nueva.🌹
-                if pygame.mixer.music.get_busy():
-                    pygame.mixer.music.stop()
                 CLICK_SOUND.play()
                 retorno = "opciones"
 
