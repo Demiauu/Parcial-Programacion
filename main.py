@@ -3,8 +3,8 @@ from configuracion import (
     audio,
     menu,
     constantes,
-    preguntas,
     funciones,
+    controles,
     opciones,
     ranking
 )
@@ -29,22 +29,25 @@ ventana_actual = "menu"
 while corriendo:
     Reloj.tick(constantes.FPS)  
     cola_eventos = pygame.event.get()
-    pantalla.fill(constantes.COLOR_BLANCO)
     #eventos 
     if ventana_actual == "menu":
         ventana_actual = menu.mostrar_menu(pantalla,cola_eventos)
-        #se escuche otra musica adentro de menú 🌹
+        #se escuche otra musica adentro de menú.🌹
         audio.reproducir_musica(ventana_actual,datos_juego)
     elif ventana_actual == "jugar":
         pass
-    #Con esto muestra las opciones para configurar el sonido 🌹
+    #Con esto muestra las opciones para configurar el sonido.🌹
     elif ventana_actual == "opciones":
         ventana_actual = opciones.mostrar_opciones(pantalla,cola_eventos,datos_juego)
-        #se escuche otra musica adentro de opciones 🌹
+        #se escuche otra musica adentro de opciones.🌹
         audio.reproducir_musica(ventana_actual,datos_juego)
     #se agrega el ranking 👻
     elif ventana_actual == "ranking":
         ventana_actual = ranking.mostrar_ranking(pantalla,cola_eventos)
+        audio.reproducir_musica(ventana_actual,datos_juego)
+    #Se agrego la pantalla de controles.🌹
+    elif ventana_actual == "controles":
+        ventana_actual = controles.mostrar_controles(pantalla,cola_eventos)
         audio.reproducir_musica(ventana_actual,datos_juego)
     elif ventana_actual == "salir":
         corriendo = False

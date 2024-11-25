@@ -47,7 +47,7 @@ def mostrar_texto(surface, text, pos, font, color=pygame.Color('black')):
 
 def mezclar_lista(lista_preguntas:list) -> None:
     random.shuffle(lista_preguntas)
-    
+
 def verificar_respuesta(datos_juego:dict,pregunta_actual:dict,respuesta:int) -> bool:
     if respuesta == pregunta_actual["respuesta_correcta"]:
         datos_juego["puntuacion"] += PUNTUACION_ACIERTO
@@ -62,9 +62,9 @@ def verificar_respuesta(datos_juego:dict,pregunta_actual:dict,respuesta:int) -> 
         
         datos_juego["vidas"] -= 1
         retorno = False
-    
+
     return retorno
-    
+
 def reiniciar_estadisticas(datos_juego:dict):
     datos_juego["puntuacion"] = 0
     datos_juego["vidas"] = CANTIDAD_VIDAS

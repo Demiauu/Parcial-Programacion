@@ -14,19 +14,19 @@ FPS = 60
 
 TAMAÑO_BOTON = (200,50)
 
-#Agrege el temaño de lo botones de opciones 🌹
+#Agrege el temaño de lo botones de opciones.🌹
 TAMAÑO_PREGUNTA = (350,150)
 TAMAÑO_RESPUESTA = (250,60)
 TAMAÑO_BOTON_VOLUMEN = (80,40)
 TAMAÑO_BOTON_VOLVER = (80,40)
-#Agregue los audios para los clicks y las respuestas erroneas 🌹
+#Agregue los audios para los clicks y las respuestas erroneas.🌹
 SONIDO_CLICK = pygame.mixer.Sound("sonidos/click.mp3")
 SONIDO_ERROR = pygame.mixer.Sound("sonidos/error.mp3")
 
 #nuevos audios click 👻
 CLICK_SOUND = pygame.mixer.Sound("sonidos/click_boton1.wav")
 CLICK_SOUND_OUT = pygame.mixer.Sound("sonidos/click_boton2.0.wav")
-#audio click encima 👻
+#audio click por encima del boton 👻
 CLICK_ON_SOUND = pygame.mixer.Sound("sonidos/click_on.wav")
 
 CANTIDAD_VIDAS = 3

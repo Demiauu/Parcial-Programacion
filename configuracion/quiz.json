@@ -1,0 +1,162 @@
+[
+    {
+        "pregunta": "¿Qué región de Runaterra es conocida por su habilidad en la guerra y la conquista?",
+        "respuesta_1": "Noxus",
+        "respuesta_2": "Jonia",
+        "respuesta_3": "Perú",
+        "respuesta_4": "Freljord",
+        "respuesta_correcta": "Noxus"
+    },
+    {
+        "pregunta": "¿Con qué personaje se inventó la mecánica de la 'Insec'?",
+        "respuesta_1": "Garen",
+        "respuesta_2": "Perón",
+        "respuesta_3": "Lee sin",
+        "respuesta_4": "Darius",
+        "respuesta_correcta": "Lee sin"
+    },
+    {
+        "pregunta": "¿Cuántos hijos tiene Kassadin?",
+        "respuesta_1": "15",
+        "respuesta_2": "0",
+        "respuesta_3": "El número Pi",
+        "respuesta_4": "1",
+        "respuesta_correcta": "0"
+    },
+    {
+        "pregunta": "¿Qué arma usa el personaje Yasuo?",
+        "respuesta_1": "Una escopeta recortada",
+        "respuesta_2": "Un ukelele",
+        "respuesta_3": "Una espada",
+        "respuesta_4": "Un arco",
+        "respuesta_correcta": "Una espada"
+    },
+    {
+        "pregunta": "¿A qué nación pertenece Garen?",
+        "respuesta_1": "Demacia",
+        "respuesta_2": "Asunción",
+        "respuesta_3": "Aguas turbias",
+        "respuesta_4": "Ionia",
+        "respuesta_correcta": "Demacia"
+    },
+    {
+        "pregunta": "¿Qué arma usa Twisted Fate?",
+        "respuesta_1": "Un mazo de naipes",
+        "respuesta_2": "Una daga",
+        "respuesta_3": "Un cigarrillo",
+        "respuesta_4": "Una pistola",
+        "respuesta_correcta": "Un mazo de naipes"
+    },
+    {
+        "pregunta": "¿Qué son los Yordles?",
+        "respuesta_1": "Criaturas mágicas",
+        "respuesta_2": "Unidades bélicas de Noxus",
+        "respuesta_3": "Aspectos de Targón",
+        "respuesta_4": "Héroes ancestrales",
+        "respuesta_correcta": "Criaturas mágicas"
+    },
+    {
+        "pregunta": "¿Quién es el creador de galaxias?",
+        "respuesta_1": "Aurelion Sol",
+        "respuesta_2": "Bardo, el vagabundo cósmico",
+        "respuesta_3": "Pantheon, el aspecto de la guerra",
+        "respuesta_4": "Zoe, la chispa del crepúsculo",
+        "respuesta_correcta": "Aurelion Sol"
+    },
+    {
+        "pregunta": "¿Con qué objetos están relacionados la raza de los Darkin?",
+        "respuesta_1": "Partes de armaduras",
+        "respuesta_2": "Gemas",
+        "respuesta_3": "Armas",
+        "respuesta_4": "Reliquias mágicas",
+        "respuesta_correcta": "Armas"
+    },
+    {
+        "pregunta": "¿A qué aspecto veneran los Lunari?",
+        "respuesta_1": "Diana",
+        "respuesta_2": "Leona",
+        "respuesta_3": "El Diego",
+        "respuesta_4": "Aphelios",
+        "respuesta_correcta": "Diana"
+    },
+    {
+        "pregunta": "¿Qué es el objetivo principal de League of Legends?",
+        "respuesta_1": "Destruir el Nexo enemigo",
+        "respuesta_2": "Capturar el Barón Nashor",
+        "respuesta_3": "Defender la base",
+        "respuesta_4": "Ganar experiencia",
+        "respuesta_correcta": "Destruir el Nexo enemigo"
+    },
+    {
+        "pregunta": "¿Cuántos roles existen en League of Legends y cuáles son?",
+        "respuesta_1": "Cinco roles: Top, Mid, Jungla, Bot, Soporte",
+        "respuesta_2": "Cuatro roles: Top, Jungla, Mid, Soporte",
+        "respuesta_3": "Seis roles: Top, Jungla, Mid, Soporte, ADC, Asesino",
+        "respuesta_4": "Tres roles: Top, Mid y Soporte",
+        "respuesta_correcta": "Cinco roles: Top, Mid, Jungla, Bot, Soporte"
+    },
+    {
+        "pregunta": "¿Qué es un 'jungla' en League of Legends?",
+        "respuesta_1": "El jugador que se mueve por la jungla matando monstruos neutrales",
+        "respuesta_2": "El jugador que está en la línea superior del mapa",
+        "respuesta_3": "El jugador que se dedica a ayudar al soporte",
+        "respuesta_4": "Un campeón especializado en control de masas",
+        "respuesta_correcta": "El jugador que se mueve por la jungla matando monstruos neutrales"
+    },
+    {
+        "pregunta": "¿Qué son las 'torres' en el juego?",
+        "respuesta_1": "Estructuras defensivas que protegen la base",
+        "respuesta_2": "Un tipo de minion que ayuda a los jugadores",
+        "respuesta_3": "Objetos que los jugadores deben destruir para obtener oro",
+        "respuesta_4": "Zonas de curación en el mapa",
+        "respuesta_correcta": "Estructuras defensivas que protegen la base"
+    },
+    {
+        "pregunta": "¿Qué es un 'inhibidor' y qué ocurre cuando se destruye?",
+        "respuesta_1": "Una estructura que permite generar super minions en una línea",
+        "respuesta_2": "Una torre de gran poder",
+        "respuesta_3": "Un campeón especial que ayuda a los jugadores",
+        "respuesta_4": "Una unidad que mejora a los súbditos aliados",
+        "respuesta_correcta": "Una estructura que permite generar super minions en una línea"
+    },
+    {
+        "pregunta": "¿Qué es un 'Barón Nashor'?",
+        "respuesta_1": "Un monstruo que da bonificaciones a los jugadores del equipo",
+        "respuesta_2": "Un campeón muy poderoso del juego",
+        "respuesta_3": "Un tipo de torre de gran poder",
+        "respuesta_4": "Un súbdito especial",
+        "respuesta_correcta": "Un monstruo que da bonificaciones a los jugadores del equipo"
+    },
+    {
+        "pregunta": "¿Cuántos campeones existen actualmente en el juego?",
+        "respuesta_1": "Más de 100 campeones",
+        "respuesta_2": "Más de 160 campeones",
+        "respuesta_3": "Más de 200 campeones",
+        "respuesta_4": "Exactamente 180 campeones",
+        "respuesta_correcta": "Más de 160 campeones"
+    },
+    {
+        "pregunta": "¿Qué son las 'Runas' en el juego?",
+        "respuesta_1": "Un sistema de personalización de habilidades y atributos de campeones",
+        "respuesta_2": "Un tipo de objeto que se compra durante la partida",
+        "respuesta_3": "Un tipo de monstruo en la jungla",
+        "respuesta_4": "Misiones diarias que los jugadores completan",
+        "respuesta_correcta": "Un sistema de personalización de habilidades y atributos de campeones"
+    },
+    {
+        "pregunta": "¿Qué es un 'Pentakill'?",
+        "respuesta_1": "Matar a los cinco miembros del equipo enemigo en un corto tiempo",
+        "respuesta_2": "Un tipo de hechizo que mata a todos los enemigos",
+        "respuesta_3": "Cuando se mata al Barón Nashor",
+        "respuesta_4": "Un logro especial por partidas perfectas",
+        "respuesta_correcta": "Matar a los cinco miembros del equipo enemigo en un corto tiempo"
+    },
+    {
+        "pregunta": "¿Qué es un 'Meta' en League of Legends?",
+        "respuesta_1": "Las estrategias y composiciones de equipo más efectivas en un momento",
+        "respuesta_2": "Un tipo de hechizo especial que cambia el juego",
+        "respuesta_3": "Un campeón muy poderoso",
+        "respuesta_4": "Un mapa alternativo del juego",
+        "respuesta_correcta": "Las estrategias y composiciones de equipo más efectivas en un momento"
+    }
+]
