@@ -11,6 +11,8 @@ def reproducir_musica(ventana_actual, datos_juego):
         ruta_musica = "sonidos/League of Legends - Warriors.WAV"
     elif ventana_actual == "opciones":
         ruta_musica = "sonidos/musica.mp3"
+    elif ventana_actual == "jugar":
+        ruta_musica = "sonidos/Ignite - Zedd.WAV"
     else:
         return  #si no hay musica sale
     #si la musica ya está encendida no hace nda 👻

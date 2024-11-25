@@ -4,8 +4,8 @@ from .funciones import mostrar_texto,crear_boton,cambiar_boton
 
 pygame.init()
 #guarde la imagen en una variable para despues cambiarle el tamaño con .transform.scale 👻
-fondo_original2 = pygame.image.load("imagenes/menu_raw.png")
-fondo2 = pygame.transform.scale(fondo_original2, (702,502))
+fondo_original = pygame.image.load("imagenes/menu_raw.png")
+fondo = pygame.transform.scale(fondo_original, (702,502))
 
 fuente_menu = pygame.font.SysFont("Arial Narrow",30)
 
@@ -13,10 +13,11 @@ fuente_menu = pygame.font.SysFont("Arial Narrow",30)
 boton_atras = crear_boton((70,30),"imagenes/boton_atras.png")
 
 def mostrar_ranking(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event]) -> str:
-    """esta funcion dibuja el menu ranking al llamarla, recibe como primer parametro las dimensiones de la pantalla, como segundo parametro la cola de eventos, devuelve un string. 👻"""
+    """esta funcion dibuja el menu ranking al llamarla, recibe como primer parametro las dimensiones de la pantalla, 
+    como segundo parametro la cola de eventos, devuelve un string. 👻"""
     
     retorno = "ranking"
-    #manejo de eventos
+    #manejo de eventos 👻
     for evento in cola_eventos:
         if evento.type == pygame.MOUSEMOTION:
             #se actualizan las imagenes dependiendo si el mouse está encima del botón o no 👻
@@ -29,6 +30,9 @@ def mostrar_ranking(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event
         if evento.type == pygame.MOUSEBUTTONDOWN:
             if boton_atras["rectangulo"].collidepoint(evento.pos):
                 retorno = "menu"
+                #detiene la musica para reproducir nueva 👻.
+                if pygame.mixer.music.get_busy():
+                    pygame.mixer.music.stop()
                 #se agrega el sonido de la constante 👻
                 CLICK_SOUND_OUT.play()
         
@@ -39,7 +43,7 @@ def mostrar_ranking(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event
     #actualizar el juego
 
     #dibujar fondo 
-    pantalla.blit(fondo2, (0,0))
+    pantalla.blit(fondo, (0,0))
     #dibujo el boton atras 👻
     boton_atras["rectangulo"] = pantalla.blit(boton_atras["superficie"],(10,10))
 

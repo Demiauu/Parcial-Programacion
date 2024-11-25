@@ -17,11 +17,12 @@ boton_opciones = crear_boton(TAMAÑO_BOTON,"imagenes/boton_opciones.png")
 boton_salir = crear_boton((70,30),"imagenes/boton_salir.png")
 
 def mostrar_menu(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event]) -> str:
-    """esta funcion dibuja el menu al llamarla, recibe como primer parametro las dimensiones de la pantalla, como segundo parametro la cola de eventos, devuelve un string. 👻"""
+    """esta funcion dibuja el menu al llamarla, recibe como primer parametro las dimensiones de la pantalla, 
+    como segundo parametro la cola de eventos, devuelve un string. 👻"""
 
     retorno = "menu"
 
-    #manejo de eventos
+    #manejo de eventos 👻
     for evento in cola_eventos:
         if evento.type == pygame.MOUSEMOTION:
             #se actualizan las imagenes dependiendo si el mouse está encima del botón o no 👻
@@ -55,7 +56,13 @@ def mostrar_menu(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event]) 
         #agrego la interacción de boton de salir 👻
             elif boton_salir["rectangulo"].collidepoint(evento.pos):
                 retorno = "salir"
-
+        #agrego la interacción de boton de jugar 👻
+            elif boton_jugar["rectangulo"].collidepoint(evento.pos):
+                retorno = "jugar"
+                #detiene la musica para reproducir nueva 👻.
+                if pygame.mixer.music.get_busy():
+                    pygame.mixer.music.stop()
+                CLICK_SOUND.play()
         #Agrege el boton opciones para que funcione 🌹
         if evento.type == pygame.MOUSEBUTTONDOWN:
             if boton_opciones["rectangulo"].collidepoint(evento.pos):
@@ -63,6 +70,7 @@ def mostrar_menu(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event]) 
                 if pygame.mixer.music.get_busy():
                     pygame.mixer.music.stop()
                 retorno = "opciones"
+                CLICK_SOUND.play()
     #////////////////////////////////////
         if evento.type == pygame.QUIT:
             retorno = "salir"

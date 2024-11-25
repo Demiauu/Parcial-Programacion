@@ -3,7 +3,8 @@ from .constantes import *
 import pygame
 
 def crear_boton(tamanio:tuple,imagen:str)->dict:
-    """esta funcion crea botones, recibe el tamaño de la imagen como primer parametro y como segundo parametro recibe la imagen, devuelve un diccionario con la información del botón. 👻"""
+    """esta funcion crea botones, recibe el tamaño de la imagen como primer parametro y 
+    como segundo parametro recibe la imagen, devuelve un diccionario con la información del botón. 👻"""
     boton = {}
     imagen_original = pygame.image.load(imagen)
     boton["superficie"] = pygame.transform.scale(imagen_original, tamanio)
@@ -14,7 +15,8 @@ def crear_boton(tamanio:tuple,imagen:str)->dict:
     return boton
 
 def cambiar_boton(boton:dict,imagen:str,tamanio:tuple,evento:bool):
-    """esta función recibe la info del botón que vamos a modificar, imagen nueva, tamaño y el evento. devuelve el botón modificado."""
+    """esta función recibe la info del botón que vamos a modificar, imagen nueva, tamaño y el evento. 
+    devuelve el botón modificado. 👻"""
     if "imagen_nueva" not in boton:  # Si la imagen no ha sido cargada aún
         imagen_nueva_original = pygame.image.load(imagen)
         boton["imagen_nueva"] = pygame.transform.scale(imagen_nueva_original, tamanio)
