@@ -19,19 +19,20 @@ Reloj = pygame.time.Clock()
 
 ventana_actual = "menu"
 
-#musica del juego. 👻
-audio.musica(ventana_actual,datos_juego)
+# musica del juego. 👻
+# audio.musica(ventana_actual,datos_juego)
 
 while corriendo:
-    Reloj.tick(FPS)  
+    Reloj.tick(FPS)
     cola_eventos = pygame.event.get()
     pantalla.fill(COLOR_BLANCO)
-    #eventos 
+    audio.musica(ventana_actual,datos_juego)
+    #eventos
     if ventana_actual == "menu":
         ventana_actual = mostrar_menu(pantalla,cola_eventos)
     elif ventana_actual == "jugar":
         pass
-    #Con esto muestro las opciones para configurar el sonido 🌹
+    #Con esto muestra las opciones para configurar el sonido 🌹
     elif ventana_actual == "opciones":
         ventana_actual = mostrar_opciones(pantalla,cola_eventos,datos_juego)
     elif ventana_actual == "ranking":

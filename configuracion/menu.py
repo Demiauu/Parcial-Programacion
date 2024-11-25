@@ -16,20 +16,19 @@ boton_salir = crear_boton((70,30),"imagenes/boton_salir.png")
 
 def mostrar_menu(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event]) -> str:
     """esta funcion dibuja el menu al llamarla, recibe como primer parametro las dimensiones de la pantalla, como segundo parametro la cola de eventos, devuelve un string. 👻"""
-    
+
     retorno = "menu"
 
     #manejo de eventos
     for evento in cola_eventos:
-        if evento.type == pygame.MOUSEMOTION:
-            print(evento.pos)
+        # if evento.type == pygame.MOUSEMOTION:
+        #     print(evento.pos)
         if evento.type == pygame.QUIT:
             retorno = "salir"
         #Agrege el boton opciones para que funcione 🌹
         elif evento.type == pygame.MOUSEBUTTONDOWN:
             if boton_opciones["rectangulo"].collidepoint(evento.pos):
                 retorno = "opciones"
-    #actualizar el juego
 
     #dibujar fondo 
     pantalla.blit(fondo, (0,0))

@@ -19,6 +19,7 @@ TAMAÑO_PREGUNTA = (350,150)
 TAMAÑO_RESPUESTA = (250,60)
 TAMAÑO_BOTON_VOLUMEN = (80,40)
 TAMAÑO_BOTON_VOLVER = (80,40)
+VOLUMEN = 100
 #Agregue los audios para los clicks y las respuestas erroneas 🌹
 SONIDO_CLICK = pygame.mixer.Sound("sonidos/click.mp3")
 SONIDO_ERROR = pygame.mixer.Sound("sonidos/error.mp3")
