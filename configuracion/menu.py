@@ -52,6 +52,8 @@ def mostrar_menu(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event]) 
         if evento.type == pygame.MOUSEBUTTONDOWN:
             if boton_ranking["rectangulo"].collidepoint(evento.pos):
                 retorno = "ranking"
+                if pygame.mixer.music.get_busy():
+                    pygame.mixer.music.stop()
                 CLICK_SOUND.play()
         #agrego la interacción de boton de salir 👻
             elif boton_salir["rectangulo"].collidepoint(evento.pos):
