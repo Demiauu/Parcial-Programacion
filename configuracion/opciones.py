@@ -30,6 +30,7 @@ boton_volver["superficie"] = pygame.Surface(TAMAÑO_BOTON_VOLVER)
 boton_volver["rectangulo"] = boton_volver["superficie"].get_rect()
 boton_volver["superficie"].fill(COLOR_AZUL)
 
+# la funcion detecta cada click de los botones para ajustar el volumen de los audios 🌹
 def mostrar_opciones(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event],datos_juego:dict) -> str:
     retorno = "opciones"
     
@@ -41,30 +42,28 @@ def mostrar_opciones(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Even
                 if datos_juego['volumen_juego'] < 100:
                     print("Sube el Volumen")
                     datos_juego['volumen_juego'] += 5
-                    datos_juego['volumen_clicks'] += 5
-                SONIDO_CLICK.play()
+                CLICK_SOUND.play()
             elif boton_resta["rectangulo"].collidepoint(evento.pos):
                 if datos_juego['volumen_juego'] > 0:
                     print("Baja el Volumen")                    
                     datos_juego['volumen_juego'] -= 5
-                    datos_juego['volumen_clicks'] -= 5
-                SONIDO_CLICK.play()
+                CLICK_SOUND.play()
             elif boton_suma_click["rectangulo"].collidepoint(evento.pos):
                 if datos_juego['volumen_clicks'] < 100:
                     print("Sube el Volumen")
                     datos_juego['volumen_clicks'] += 5
-                SONIDO_CLICK.play()
+                CLICK_SOUND.play()
             elif boton_resta_click["rectangulo"].collidepoint(evento.pos):
                 if datos_juego['volumen_clicks'] > 0:
                     print("Baja el Volumen")
                     datos_juego['volumen_clicks'] -= 5
-                SONIDO_CLICK.play()
+                CLICK_SOUND.play()
             elif boton_volver["rectangulo"].collidepoint(evento.pos):
                 #detiene la musica para reproducir nueva 👻.
                 if pygame.mixer.music.get_busy():
                     pygame.mixer.music.stop()
                 print("Vuelve al menú")
-                SONIDO_CLICK.play()
+                CLICK_SOUND.play()
                 retorno = "menu"
 
     boton_suma["rectangulo"] = pantalla.blit(boton_suma["superficie"],(600,250))

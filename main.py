@@ -35,6 +35,7 @@ while corriendo:
     #se agrega el menu principal 👻
     if ventana_actual == "menu":
         ventana_actual = menu.mostrar_menu(pantalla,cola_eventos)
+        #se escuche otra musica adentro de menú 🌹
         audio.reproducir_musica(ventana_actual,datos_juego)
     #se agrega la ventana jugar 👻
     elif ventana_actual == "jugar":
@@ -50,6 +51,7 @@ while corriendo:
     #se agrega el ranking 👻
     elif ventana_actual == "ranking":
         ventana_actual = ranking.mostrar_ranking(pantalla,cola_eventos)
+        audio.reproducir_musica(ventana_actual,datos_juego)
     elif ventana_actual == "salir":
         corriendo = False
 
