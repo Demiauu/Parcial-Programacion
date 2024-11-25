@@ -34,7 +34,7 @@ def mostrar_controles(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Eve
     mostrar_texto(boton_volver["superficie"],"Volver",(15,15),fuente_boton,COLOR_BLANCO)
     mostrar_texto(pantalla,f"CONTROLES",(310,150),fuente_volumen,COLOR_BLANCO)
     mostrar_texto(pantalla,f"Escape = Pausa",(310,260),fuente_volumen,COLOR_BLANCO)
-    mostrar_texto(pantalla,f"B = Comodines",(310,300),fuente_volumen,COLOR_BLANCO)
+    mostrar_texto(pantalla,f"Espacio = Comodines",(310,300),fuente_volumen,COLOR_BLANCO)
     mostrar_texto(pantalla,f"Flechas = Ajustar volumen (en opciones)",(310,340),fuente_volumen,COLOR_BLANCO)
 
     return retorno
