@@ -9,6 +9,12 @@ fondo = pygame.transform.scale(fondo_opciones, (702,502))
 
 pygame.init()
 
+bandera_musica = False
+bandera_general = False
+general_aux = 0
+musica_aux = 0
+musica_aux2 = 0
+
 fuente_boton = pygame.font.SysFont("Pixel Operator 8",11)
 fuente_controles = pygame.font.SysFont("Pixel Operator 8",9)
 fuente_volumen = pygame.font.SysFont("Pixel Operator 8",20)
@@ -53,10 +59,11 @@ boton_controles["superficie"].fill(COLOR_AZUL)
 def mostrar_opciones(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event],datos_juego:dict) -> str:
     retorno = "opciones"
     
-    bandera_musica = False
-    bandera_general = False
-    general_aux = 0
-    musica_aux = 0
+    global bandera_general
+    global bandera_musica
+    global musica_aux
+    global general_aux
+    global musica_aux2
 
     for evento in cola_eventos:
         if evento.type == pygame.QUIT:
@@ -87,6 +94,7 @@ def mostrar_opciones(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Even
             elif boton_controles["rectangulo"].collidepoint(evento.pos):
                 CLICK_SOUND.play()
                 retorno = "controles"
+            #Se agrego la funcion del boton mute musica y que guarde el valor que tenia antes.🌹
             elif boton_desactivar_musica["rectangulo"].collidepoint(evento.pos):
                 if bandera_musica == False:
                     musica_aux = datos_juego["volumen_juego"]
@@ -96,13 +104,17 @@ def mostrar_opciones(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Even
                     datos_juego["volumen_juego"] = musica_aux
                     bandera_musica = False
                 CLICK_SOUND.play()
+            #Se agrego la funcion del boton mute general y que guarde el valor que tenia antes.🌹
             elif boton_desactivar_general["rectangulo"].collidepoint(evento.pos):
                 if bandera_general == False:
                     general_aux = datos_juego["volumen_clicks"]
+                    musica_aux2 = datos_juego["volumen_juego"]
                     datos_juego["volumen_clicks"] = 0
+                    datos_juego["volumen_juego"] = 0
                     bandera_general = True
                 else:
                     datos_juego["volumen_clicks"] = general_aux
+                    datos_juego["volumen_juego"] = musica_aux2
                     bandera_general = False
         # Se agrego la funcion de subir y bajar el volumen con las flechas del teclado.🌹
         elif evento.type == pygame.KEYDOWN:
