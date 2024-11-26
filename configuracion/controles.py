@@ -9,8 +9,8 @@ pygame.init()
 fondo_original4 = pygame.image.load("imagenes/GaTstotW8AAlBrF.png")
 fondo = pygame.transform.scale(fondo_original4, (702,502))
 
-fuente_boton = pygame.font.SysFont("Pixel Operator 8",20)
-fuente_volumen = pygame.font.SysFont("Pixel Operator 8",50)
+fuente_boton = pygame.font.SysFont("Pixel Operator 8",11)
+fuente_volumen = pygame.font.SysFont("Pixel Operator 8",20)
 
 boton_volver = {}
 boton_volver["superficie"] = pygame.Surface(TAMAÑO_BOTON_VOLVER)
