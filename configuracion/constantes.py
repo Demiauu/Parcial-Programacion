@@ -12,6 +12,9 @@ ALTO = 500
 VENTANA = (ANCHO,ALTO)
 FPS = 60
 
+#todo# VARIABLE PARA ACCEDER A LA VENTANA
+PANTALLA = pygame.display.set_mode(VENTANA)
+
 TAMAÑO_BOTON = (200,50)
 
 #Agrege el temaño de lo botones de opciones.🌹
@@ -36,3 +39,10 @@ CLICK_ON_SOUND = pygame.mixer.Sound("sonidos/click_on.wav")
 CANTIDAD_VIDAS = 3
 PUNTUACION_ACIERTO = 100
 PUNTUACION_ERROR = 25
+
+#todo# PUNTUACION
+GAME_OVER = False 
+SCORES = []
+PUNTOS = 0
+VIDAS = 3 
+
