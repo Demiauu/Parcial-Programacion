@@ -1,6 +1,6 @@
 import pygame
 from .constantes import *
-from .funciones import mostrar_texto
+from .funciones import mostrar_texto,crear_boton,cambiar_boton
 
 #Todo este codigo es para que la ventana de opciones funcione bien.🌹
 
@@ -28,10 +28,12 @@ boton_resta_click = {}
 boton_resta_click["superficie"] = pygame.Surface(TAMAÑO_BOTON_VOLUMEN)
 boton_resta_click["rectangulo"] = boton_resta_click["superficie"].get_rect()
 boton_resta_click["superficie"].fill(COLOR_ROJO)
-boton_volver = {}
-boton_volver["superficie"] = pygame.Surface(TAMAÑO_BOTON_VOLVER)
-boton_volver["rectangulo"] = boton_volver["superficie"].get_rect()
-boton_volver["superficie"].fill(COLOR_AZUL)
+#///////////////////////////////////////////////////////
+    
+#creamos el boton atras👻
+boton_volver = crear_boton((70,30),"imagenes/boton_atras.png")
+
+#///////////////////////////////////////////////////////
 #Se agrego el boton para acceder a los controles.🌹
 boton_controles = {}
 boton_controles["superficie"] = pygame.Surface(TAMAÑO_BOTON_VOLVER)
@@ -43,6 +45,16 @@ def mostrar_opciones(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Even
     retorno = "opciones"
     
     for evento in cola_eventos:
+        #///////////////////////////////////////////
+
+        #metemos la interacción sobre el botón atrás 👻
+        if evento.type == pygame.MOUSEMOTION:
+            if boton_volver["rectangulo"].collidepoint(evento.pos):
+                cambiar_boton(boton_volver,"imagenes/boton_atras_on.png",(70,30),True)
+            else:
+                cambiar_boton(boton_volver,"imagenes/boton_atras_on.png",(70,30),False)
+        
+        #///////////////////////////////////////////
         if evento.type == pygame.QUIT:
             retorno = "salir"
         elif evento.type == pygame.MOUSEBUTTONDOWN:
@@ -66,7 +78,7 @@ def mostrar_opciones(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Even
                 #detiene la musica para reproducir nueva 👻.
                 if pygame.mixer.music.get_busy():
                     pygame.mixer.music.stop()
-                CLICK_SOUND.play()
+                CLICK_SOUND_OUT.play()
                 retorno = "menu"
             elif boton_controles["rectangulo"].collidepoint(evento.pos):
                 #detiene la musica para reproducir nueva 👻.
@@ -93,6 +105,13 @@ def mostrar_opciones(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Even
 
     #dibuja el fondo.🌹
     pantalla.blit(fondo, (0,0))
+
+    #///////////////////////////////////
+
+    #dibujo el boton atras 👻
+    boton_volver["rectangulo"] = pantalla.blit(boton_volver["superficie"],(10,10))
+
+    #///////////////////////////////////
 
     boton_suma["rectangulo"] = pantalla.blit(boton_suma["superficie"],(600,250))
     boton_resta["rectangulo"] = pantalla.blit(boton_resta["superficie"],(20,250))

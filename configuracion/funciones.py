@@ -15,7 +15,7 @@ def crear_boton(tamanio:tuple,imagen:str)->dict:
     return boton
 
 def cambiar_boton(boton:dict,imagen:str,tamanio:tuple,evento:bool):
-    """esta función recibe la info del botón que vamos a modificar, imagen nueva, tamaño y el evento. 
+    """esta función recibe la info del botón que vamos a modificar, imagen nueva, tamaño y un booleano. 
     devuelve el botón modificado. 👻"""
     if "imagen_nueva" not in boton:  # Si la imagen no ha sido cargada aún
         imagen_nueva_original = pygame.image.load(imagen)
