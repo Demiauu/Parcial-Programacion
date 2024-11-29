@@ -9,8 +9,16 @@ fondo = pygame.transform.scale(fondo_opciones, (702,502))
 
 pygame.init()
 
-fuente_boton = pygame.font.SysFont("Pixel Operator 8",20)
-fuente_volumen = pygame.font.SysFont("Pixel Operator 8",50)
+bandera_musica = False
+bandera_general = False
+general_aux = 0
+musica_aux = 0
+musica_aux2 = 0
+
+fuente_boton = pygame.font.SysFont("Pixel Operator 8",11)
+fuente_controles = pygame.font.SysFont("Pixel Operator 8",9)
+fuente_volumen = pygame.font.SysFont("Pixel Operator 8",20)
+fuente_desactivar = pygame.font.SysFont("Pixel Operator 9", 20)
 
 boton_suma = {}
 boton_suma["superficie"] = pygame.Surface(TAMAÑO_BOTON_VOLUMEN)
@@ -34,6 +42,15 @@ boton_resta_click["superficie"].fill(COLOR_ROJO)
 boton_volver = crear_boton((70,30),"imagenes/boton_atras.png")
 
 #///////////////////////////////////////////////////////
+#Se agregaron los botones de desactivar la musica y los sonidos.🌹
+boton_desactivar_musica = {}
+boton_desactivar_musica["superficie"] = pygame.Surface(TAMAÑO_BOTON_VOLVER)
+boton_desactivar_musica["rectangulo"] = boton_desactivar_musica["superficie"].get_rect()
+boton_desactivar_musica["superficie"].fill(COLOR_ROJO)
+boton_desactivar_general = {}
+boton_desactivar_general["superficie"] = pygame.Surface(TAMAÑO_BOTON_VOLVER)
+boton_desactivar_general["rectangulo"] = boton_desactivar_general["superficie"].get_rect()
+boton_desactivar_general["superficie"].fill(COLOR_ROJO)
 #Se agrego el boton para acceder a los controles.🌹
 boton_controles = {}
 boton_controles["superficie"] = pygame.Surface(TAMAÑO_BOTON_VOLVER)
@@ -44,6 +61,12 @@ boton_controles["superficie"].fill(COLOR_AZUL)
 def mostrar_opciones(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event],datos_juego:dict) -> str:
     retorno = "opciones"
     
+    global bandera_general
+    global bandera_musica
+    global musica_aux
+    global general_aux
+    global musica_aux2
+
     for evento in cola_eventos:
         #///////////////////////////////////////////
 
@@ -81,9 +104,30 @@ def mostrar_opciones(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Even
                 CLICK_SOUND_OUT.play()
                 retorno = "menu"
             elif boton_controles["rectangulo"].collidepoint(evento.pos):
-                #detiene la musica para reproducir nueva 👻.
                 CLICK_SOUND.play()
                 retorno = "controles"
+            #Se agrego la funcion del boton mute musica y que guarde el valor que tenia antes.🌹
+            elif boton_desactivar_musica["rectangulo"].collidepoint(evento.pos):
+                if bandera_musica == False:
+                    musica_aux = datos_juego["volumen_juego"]
+                    datos_juego["volumen_juego"] = 0
+                    bandera_musica = True
+                else:
+                    datos_juego["volumen_juego"] = musica_aux
+                    bandera_musica = False
+                CLICK_SOUND.play()
+            #Se agrego la funcion del boton mute general y que guarde el valor que tenia antes.🌹
+            elif boton_desactivar_general["rectangulo"].collidepoint(evento.pos):
+                if bandera_general == False:
+                    general_aux = datos_juego["volumen_clicks"]
+                    musica_aux2 = datos_juego["volumen_juego"]
+                    datos_juego["volumen_clicks"] = 0
+                    datos_juego["volumen_juego"] = 0
+                    bandera_general = True
+                else:
+                    datos_juego["volumen_clicks"] = general_aux
+                    datos_juego["volumen_juego"] = musica_aux2
+                    bandera_general = False
         # Se agrego la funcion de subir y bajar el volumen con las flechas del teclado.🌹
         elif evento.type == pygame.KEYDOWN:
             if evento.key == pygame.K_RIGHT:
@@ -113,20 +157,31 @@ def mostrar_opciones(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Even
 
     #///////////////////////////////////
 
-    boton_suma["rectangulo"] = pantalla.blit(boton_suma["superficie"],(600,250))
-    boton_resta["rectangulo"] = pantalla.blit(boton_resta["superficie"],(20,250))
-    boton_suma_click["rectangulo"] = pantalla.blit(boton_suma_click["superficie"],(600,340))
-    boton_resta_click["rectangulo"] = pantalla.blit(boton_resta_click["superficie"],(20,340))
+    #///////////////////////////////////
+
+    #dibujo el boton atras 👻
+    boton_volver["rectangulo"] = pantalla.blit(boton_volver["superficie"],(10,10))
+
+    #///////////////////////////////////
+
+    boton_suma["rectangulo"] = pantalla.blit(boton_suma["superficie"],(583,150))
+    boton_resta["rectangulo"] = pantalla.blit(boton_resta["superficie"],(20,150))
+    boton_suma_click["rectangulo"] = pantalla.blit(boton_suma_click["superficie"],(583,240))
+    boton_resta_click["rectangulo"] = pantalla.blit(boton_resta_click["superficie"],(20,240))
     boton_volver["rectangulo"] = pantalla.blit(boton_volver["superficie"],(10,10))
     boton_controles["rectangulo"] = pantalla.blit(boton_controles["superficie"],(610,10))
+    boton_desactivar_general["rectangulo"] = pantalla.blit(boton_desactivar_general["superficie"],(220,380))
+    boton_desactivar_musica["rectangulo"] = pantalla.blit(boton_desactivar_musica["superficie"],(420,380))
 
-    mostrar_texto(boton_suma["superficie"],"Volumen +",(5,15),fuente_boton,COLOR_NEGRO)
-    mostrar_texto(boton_resta["superficie"],"Volumen -",(5,15),fuente_boton,COLOR_NEGRO)
-    mostrar_texto(boton_suma_click["superficie"],"Volumen +",(5,15),fuente_boton,COLOR_NEGRO)
-    mostrar_texto(boton_resta_click["superficie"],"Volumen -",(5,15),fuente_boton,COLOR_NEGRO)
+    mostrar_texto(boton_suma["superficie"],"Volumen +",(4,15),fuente_boton,COLOR_NEGRO)
+    mostrar_texto(boton_resta["superficie"],"Volumen -",(4,15),fuente_boton,COLOR_NEGRO)
+    mostrar_texto(boton_suma_click["superficie"],"Volumen +",(4,15),fuente_boton,COLOR_NEGRO)
+    mostrar_texto(boton_resta_click["superficie"],"Volumen -",(4,15),fuente_boton,COLOR_NEGRO)
     mostrar_texto(boton_volver["superficie"],"Volver",(15,15),fuente_boton,COLOR_BLANCO)
-    mostrar_texto(boton_controles["superficie"],"Controles",(5,15),fuente_boton,COLOR_BLANCO)
-    mostrar_texto(pantalla,f"{datos_juego["volumen_juego"]}%",(310,250),fuente_volumen,COLOR_BLANCO)
-    mostrar_texto(pantalla,f"{datos_juego["volumen_clicks"]}%",(310,340),fuente_volumen,COLOR_BLANCO)
+    mostrar_texto(boton_controles["superficie"],"Controles",(4,9),fuente_controles,COLOR_BLANCO)
+    mostrar_texto(boton_desactivar_musica["superficie"],"Desactivar musica",(5,10),fuente_desactivar,COLOR_BLANCO)
+    mostrar_texto(boton_desactivar_general["superficie"],"Desactivar sonidos",(5,10),fuente_desactivar,COLOR_BLANCO)
+    mostrar_texto(pantalla,f"{datos_juego["volumen_juego"]}%",(310,160),fuente_volumen,COLOR_BLANCO)
+    mostrar_texto(pantalla,f"{datos_juego["volumen_clicks"]}%",(310,250),fuente_volumen,COLOR_BLANCO)
 
     return retorno
