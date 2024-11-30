@@ -1,6 +1,9 @@
 import pygame 
 from .constantes import *
 from .funciones import mostrar_texto, crear_boton, cambiar_boton
+from .estado import estado_pausa
+
+bandera_pausa = False
 
 pygame.init()
 #guarde la imagen en una variable para despues cambiarle el tamaño con .transform.scale 👻
@@ -17,7 +20,7 @@ boton_salir = crear_boton(TAMAÑO_BOTON_PAUSA,"imagenes/boton_salir_pausa.png")
 def mostrar_pausa(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event]) -> str:
     """esta funcion dibuja el menu pausa al llamarla, recibe como primer parametro las dimensiones de la pantalla, 
     como segundo parametro la cola de eventos, devuelve un string. 👻"""
-
+    
     retorno = "pausa"
     #manejo de eventos 👻
     for evento in cola_eventos:
@@ -51,6 +54,8 @@ def mostrar_pausa(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
                 #si se está reproduciendo musica se detiene 👻
                 if pygame.mixer.music.get_busy():
                     pygame.mixer.music.stop()
+                #cambia el estado de pausa (esto se utiliza para saber si se entra al menu de opciones desde el menu o pausa)👻
+                estado_pausa["bandera"] = True
                 #reproduce el sonido de click 👻
                 CLICK_SOUND.play()
             elif boton_salir["rectangulo"].collidepoint(evento.pos):

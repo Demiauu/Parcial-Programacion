@@ -22,7 +22,7 @@ def mostrar_ranking(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event
         if evento.type == pygame.MOUSEMOTION:
             #se actualizan las imagenes dependiendo si el mouse está encima del botón o no 👻
             if boton_atras["rectangulo"].collidepoint(evento.pos):
-                CLICK_ON_SOUND.play()
+                #CLICK_ON_SOUND.play()
                 cambiar_boton(boton_atras,"imagenes/boton_atras_on.png",(70,30),True)
             else:
                 cambiar_boton(boton_atras,"imagenes/boton_atras_on.png",(70,30),False)

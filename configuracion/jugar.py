@@ -10,7 +10,7 @@ with open("configuracion/quiz.json", "r") as archivo:
     preguntas = json.load(archivo)
 
 #guarde la imagen en una variable para despues cambiarle el tamaño con .transform.scale 👻
-fondo_original = pygame.image.load("imagenes/jugar_raw.png")
+fondo_original = pygame.image.load("imagenes/jugar.png")
 fondo = pygame.transform.scale(fondo_original, (702,502))
 
 fuente_menu = pygame.font.SysFont("Pixel Operator 8",30)
@@ -156,7 +156,11 @@ def mostrar_jugar(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
     # except FileNotFoundError:
     #     SCORES = []  # Si no existe el archivo, inicializa una lista vacía
 
-    pantalla.fill(COLOR_BLANCO)
+    #pantalla.fill(COLOR_BLANCO)
+    #dibujar fondo 👻
+    mostrar_texto(pantalla, "Prueba", (100, 100), fuente_menu, COLOR_NEGRO)
+    pantalla.blit(fondo, (0,0))
+
 
     #todo# Mostrar la pregunta actual
     pregunta = preguntas[pregunta_actual]["pregunta"]
@@ -164,7 +168,7 @@ def mostrar_jugar(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
 
     for i, linea in enumerate(lineas_pregunta):
         x_texto = ANCHO // 2 - fuente_menu.size(linea)[0] // 2  # Centramos el texto horizontalmente
-        y_texto = ALTO // 10 + i * 40  # Ajustamos el margen superior y espaciado
+        y_texto = ALTO // 8 + i * 40  # Ajustamos el margen superior y espaciado
         mostrar_texto(pantalla, linea, (x_texto, y_texto), fuente_menu, COLOR_NEGRO)
         #mostrar_texto(pantalla, linea, (50, 50 + i * 40), fuente_menu, COLOR_NEGRO)  #todo# Ajusta el espaciado entre líneas
 
@@ -200,8 +204,7 @@ def mostrar_jugar(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
     #     retorno = "salir"
     #actualizar el juego
 
-    #dibujar fondo 👻
-    #mostrar_texto(pantalla, "Prueba", (100, 100), fuente_menu, COLOR_NEGRO)
+    
     pygame.display.flip()
-    #pantalla.blit(fondo, (0,0))
+    
     return retorno
