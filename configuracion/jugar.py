@@ -1,6 +1,6 @@
 import pygame 
 from .constantes import *
-from .funciones import mostrar_texto, crear_boton, cambiar_boton
+from .funciones import mostrar_texto, crear_boton, cambiar_boton, leer_csv
 import json
 
 pygame.init()
@@ -16,6 +16,11 @@ fondo = pygame.transform.scale(fondo_original, (702,502))
 fuente_menu = pygame.font.SysFont("Pixel Operator 8",30)
 
 #todo# VARIABLES AUXILARES
+#agrego el tiempo restante 👻
+configuraciones = leer_csv("configuracion\config.csv")  # Inicializa el temporizador global
+tiempo_restante = configuraciones["temporizador"]
+vidas = configuraciones["vidas"]
+#//////////////
 pregunta_actual = 0
 opcion_colores = [COLOR_AZUL] * 4
 respuesta_seleccionada = None
@@ -59,6 +64,10 @@ def mostrar_jugar(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
     global mostrar_respuesta
     global temporizador
 
+    global tiempo_restante
+    global vidas
+    tiempo_restante_aux = tiempo_restante
+
     global GAME_OVER
     global PUNTOS
     global VIDAS
@@ -86,6 +95,10 @@ def mostrar_jugar(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
                 retorno = "pausa"
                 if pygame.mixer.music.get_busy():
                     pygame.mixer.music.pause()
+            #si se preciona escape entra a la pestaña comodines 👻
+            if evento.key == pygame.K_SPACE:
+                retorno = "comodines"
+                SONIDO_MENU_COMODINES_OUT.play()
         if evento.type == pygame.MOUSEMOTION:
             #se actualizan las imagenes dependiendo si el mouse está encima del botón o no 👻
             pass
@@ -204,6 +217,22 @@ def mostrar_jugar(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
     #     retorno = "salir"
     #actualizar el juego
 
+    #se agrega el reloj 👻
+    # Actualizar el tiempo restante
+    if tiempo_restante > 0:
+        tiempo_restante -= 1 / 60  # Reducir el tiempo restante por fotograma (asume 60 FPS)
+    else:
+        tiempo_restante = tiempo_restante_aux
+        vidas -= 1
+        
+        print(vidas)
+
+    # Mostrar el temporizador global
+    minutos = int(tiempo_restante // 60)
+    segundos = int(tiempo_restante % 60)
+    tiempo_formateado = f"{minutos:02}:{segundos:02}"
+    texto_temporizador = fuente_menu.render(tiempo_formateado, True, COLOR_BLANCO)
+    pantalla.blit(texto_temporizador, (ANCHO - 150, 10))  # Posición del temporizador en pantalla
     
     pygame.display.flip()
     

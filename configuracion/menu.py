@@ -15,6 +15,7 @@ boton_jugar = crear_boton(TAMAÑO_BOTON,"imagenes/boton_jugar.png")
 boton_ranking = crear_boton(TAMAÑO_BOTON,"imagenes/boton_ranking.png")
 boton_opciones = crear_boton(TAMAÑO_BOTON,"imagenes/boton_opciones.png")
 boton_salir = crear_boton((70,30),"imagenes/boton_salir.png")
+boton_mod = crear_boton((48,30),"imagenes/boton_mod.png")
 
 def mostrar_menu(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event]) -> str:
     """esta funcion dibuja el menu al llamarla, recibe como primer parametro las dimensiones de la pantalla, 
@@ -85,5 +86,6 @@ def mostrar_menu(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event]) 
     boton_ranking["rectangulo"] = pantalla.blit(boton_ranking["superficie"],(15,350))
     boton_opciones["rectangulo"] = pantalla.blit(boton_opciones["superficie"],(486,350))
     boton_salir["rectangulo"] = pantalla.blit(boton_salir["superficie"],(318, 400))
+    boton_mod["rectangulo"] = pantalla.blit(boton_mod["superficie"],(634,20))
 
     return retorno

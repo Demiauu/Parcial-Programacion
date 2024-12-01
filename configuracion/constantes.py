@@ -26,6 +26,8 @@ TAMAÑO_RESPUESTA = (250,60)
 TAMAÑO_BOTON_VOLUMEN = (60,60)
 TAMAÑO_BOTON_DESACTIVAR_VOLUMEN = (150,40)
 TAMAÑO_BOTON_VOLVER = (80,40)
+TAMAÑO_COMODINES = (119,119)
+
 #Agregue los audios para los clicks y las respuestas erroneas.🌹
 SONIDO_CLICK = pygame.mixer.Sound("sonidos/click.mp3")
 SONIDO_ERROR = pygame.mixer.Sound("sonidos/error.mp3")
@@ -35,6 +37,11 @@ CLICK_SOUND = pygame.mixer.Sound("sonidos/click_boton1.wav")
 CLICK_SOUND_OUT = pygame.mixer.Sound("sonidos/click_boton2.0.wav")
 #audio click por encima del boton 👻
 CLICK_ON_SOUND = pygame.mixer.Sound("sonidos/click_on.wav")
+SONIDO_MENU_COMODINES = pygame.mixer.Sound("sonidos/flash.wav")
+SONIDO_MENU_COMODINES_OUT = pygame.mixer.Sound("sonidos/flash_reverb.wav")
+#sonido comodines 👻
+SONIDO_BOMBA = pygame.mixer.Sound("sonidos/bomba.wav")
+DOBLE_CHANCE = pygame.mixer.Sound("sonidos/doble_chance.wav")
 
 CANTIDAD_VIDAS = 3
 PUNTUACION_ACIERTO = 100

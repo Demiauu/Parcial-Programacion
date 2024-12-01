@@ -3,6 +3,7 @@ from configuracion import (
     audio,
     menu,
     jugar,
+    comodines,
     pausa,
     constantes,
     funciones,
@@ -43,6 +44,8 @@ while corriendo:
     #Con esto muestra las opciones para configurar el sonido.🌹
         ventana_actual = jugar.mostrar_jugar(pantalla,cola_eventos)
         audio.reproducir_musica(ventana_actual,datos_juego)
+    elif ventana_actual == "comodines":
+        ventana_actual = comodines.mostrar_comodines(pantalla,cola_eventos)
     elif ventana_actual == "pausa":
         ventana_actual = pausa.mostrar_pausa(pantalla,cola_eventos)
     #Con esto muestra las opciones para configurar el sonido 🌹

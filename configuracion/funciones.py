@@ -1,6 +1,17 @@
 import random
 from .constantes import *
 import pygame
+import csv
+
+def leer_csv(ruta_csv):
+    """esta funcion recibe como parametro la ruta del csv y lo convierte en un diccionario 👻"""
+    opciones = {}
+    #abro el archivo en modo 'r' para solo lectura 👻
+    with open(ruta_csv, mode='r') as archivo:
+        lector_csv = csv.DictReader(archivo)
+        for fila in lector_csv:
+            opciones[fila["opcion"]] = int(fila["valor"])
+    return opciones
 
 def crear_boton(tamanio:tuple,imagen:str)->dict:
     """esta funcion crea botones, recibe el tamaño de la imagen como primer parametro y 
