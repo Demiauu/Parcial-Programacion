@@ -176,12 +176,14 @@ def mostrar_opciones(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Even
     #///////////////////////////////////
 
     boton_suma["rectangulo"] = pantalla.blit(boton_suma["superficie"],(543,150))
-    boton_resta["rectangulo"] = pantalla.blit(boton_resta["superficie"],(60,150))
+    boton_resta["rectangulo"] = pantalla.blit(boton_resta["superficie"],(100,150))
     boton_suma_efectos["rectangulo"] = pantalla.blit(boton_suma_efectos["superficie"],(543,240))
-    boton_resta_efectos["rectangulo"] = pantalla.blit(boton_resta_efectos["superficie"],(60,240))
+    boton_resta_efectos["rectangulo"] = pantalla.blit(boton_resta_efectos["superficie"],(100,240))
     boton_volver["rectangulo"] = pantalla.blit(boton_volver["superficie"],(10,10))
     boton_controles["rectangulo"] = pantalla.blit(boton_controles["superficie"],(610,10))
 
+    mostrar_texto(boton_controles["superficie"],"Controles",(4,9),fuente_controles,COLOR_BLANCO)
+    mostrar_texto(boton_desactivar_musica["superficie"],"Desactivar musica",(5,10),fuente_desactivar,COLOR_BLANCO)
     mostrar_texto(pantalla,f"{datos_juego["volumen_juego"]}%",(310,160),fuente_volumen,COLOR_BLANCO)
     mostrar_texto(pantalla,f"{datos_juego["volumen_clicks"]}%",(310,250),fuente_volumen,COLOR_BLANCO)
 

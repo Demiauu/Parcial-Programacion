@@ -13,7 +13,7 @@ with open("configuracion/quiz.json", "r") as archivo:
 fondo_original = pygame.image.load("imagenes/jugar.png")
 fondo = pygame.transform.scale(fondo_original, (702,502))
 
-fuente_menu = pygame.font.SysFont("Pixel Operator 8",30)
+fuente_menu = pygame.font.SysFont("Pixel Operator 8",15)
 
 #todo# VARIABLES AUXILARES
 #agrego el tiempo restante 👻
@@ -185,7 +185,6 @@ def mostrar_jugar(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
         mostrar_texto(pantalla, linea, (x_texto, y_texto), fuente_menu, COLOR_NEGRO)
         #mostrar_texto(pantalla, linea, (50, 50 + i * 40), fuente_menu, COLOR_NEGRO)  #todo# Ajusta el espaciado entre líneas
 
-
     #todo# Mostrar opciones con colores
     claves_opciones = ["respuesta_1", "respuesta_2", "respuesta_3", "respuesta_4"]
     for i, clave_opcion in enumerate(claves_opciones):
@@ -210,7 +209,7 @@ def mostrar_jugar(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
         pregunta_actual = (pregunta_actual + 1) % len(preguntas)
         opcion_colores = [COLOR_AZUL] * 4  # Reiniciar colores
         mensaje_resultado = ""
-        mostrar_respuesta = False          
+        mostrar_respuesta = False
         #////////////////////////////////////
     # #evento quit
     # if evento.type == pygame.QUIT:
