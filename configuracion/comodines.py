@@ -1,6 +1,10 @@
 import pygame
+import random
+import json
 from .constantes import *
 from .funciones import crear_boton, cambiar_boton
+from .jugar import *
+from .estado import *
 
 pygame.init()
 
@@ -14,6 +18,24 @@ boton_bomba = crear_boton(TAMAÑO_COMODINES,"imagenes/bomba.png")
 boton_doble_chance = crear_boton((121,122),"imagenes/doble_chance.png")
 boton_x2 = crear_boton((135,46),"imagenes/x2.png")
 boton_pasar = crear_boton((144,46),"imagenes/next.png")
+
+with open("configuracion/quiz.json", "r") as archivo:
+    preguntas = json.load(archivo)
+
+def desactivar_dos_respuestas(pregunta_actual,preguntas):
+    respuestas = ["respuesta_1", "respuesta_2", "respuesta_3", "respuesta_4"]
+    respuesta_correcta = preguntas[pregunta_actual]["respuesta_correcta"]
+    incorrectas = []
+    pregunta = preguntas[pregunta_actual]
+
+    for respuesta in respuestas:
+        if pregunta[respuesta] != respuesta_correcta:
+            incorrectas.append(respuesta)
+
+    desactivar_distintas = random.sample(incorrectas, 2)
+
+    for respuesta in desactivar_distintas:
+        pregunta[respuesta] = ""
 
 def mostrar_comodines(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event]) -> str:
     """esta funcion dibuja el menu de comodines al llamarla, recibe como primer parametro las dimensiones de la pantalla, 
@@ -30,9 +52,16 @@ def mostrar_comodines(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Eve
                 SONIDO_MENU_COMODINES_OUT.play()
         #metemos la logica de los botones 👻
         if evento.type == pygame.MOUSEBUTTONDOWN:
+            
             if boton_bomba["rectangulo"].collidepoint(evento.pos):
-                retorno = "jugar"
-                SONIDO_BOMBA.play()
+                if estado_uso_comodin_bomba["bandera_uso"] == False:
+                    estado_uso_comodin_bomba["bandera_uso"] = True
+                    estado_comodin_bomba["bandera_bomba"] = True
+                    retorno = "jugar"
+                    SONIDO_BOMBA.play()
+                elif estado_uso_comodin_bomba["bandera_uso"] == True:
+                    retorno = "jugar"
+                    SONIDO_ERROR.play()
             elif boton_doble_chance["rectangulo"].collidepoint(evento.pos):
                 retorno = "jugar"
                 DOBLE_CHANCE.play()

@@ -1,6 +1,8 @@
 import pygame 
 from .constantes import *
 from .funciones import mostrar_texto, crear_boton, cambiar_boton, leer_csv
+from .estado import *
+from .comodines import *
 import json
 
 pygame.init()
@@ -188,13 +190,24 @@ def mostrar_jugar(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
     #todo# Mostrar opciones con colores
     claves_opciones = ["respuesta_1", "respuesta_2", "respuesta_3", "respuesta_4"]
     for i, clave_opcion in enumerate(claves_opciones):
-        texto_opcion = preguntas[pregunta_actual][clave_opcion]
-        x_opcion = margen_lateral
-        y_opcion = y_opcion_inicial + i * (alto_opcion + espacio_entre_opciones)
-        texto_x = x_opcion + 10  # Margen interno para el texto
-        texto_y = y_opcion + 10  # Margen interno
-        pygame.draw.rect(pantalla, opcion_colores[i], (50, 200 + i * 60, 700, 50))
-        mostrar_texto(pantalla, texto_opcion, (texto_x, texto_y), fuente_menu, COLOR_NEGRO)
+        if estado_comodin_bomba["bandera_bomba"] == False:
+            texto_opcion = preguntas[pregunta_actual][clave_opcion]
+            x_opcion = margen_lateral
+            y_opcion = y_opcion_inicial + i * (alto_opcion + espacio_entre_opciones)
+            texto_x = x_opcion + 10  # Margen interno para el texto
+            texto_y = y_opcion + 10  # Margen interno
+            pygame.draw.rect(pantalla, opcion_colores[i], (50, 200 + i * 60, 700, 50))
+            mostrar_texto(pantalla, texto_opcion, (texto_x, texto_y), fuente_menu, COLOR_NEGRO)
+        else:
+            desactivar_dos_respuestas(pregunta_actual, preguntas)
+            texto_opcion = preguntas[pregunta_actual][clave_opcion]
+            x_opcion = margen_lateral
+            y_opcion = y_opcion_inicial + i * (alto_opcion + espacio_entre_opciones)
+            texto_x = x_opcion + 10  # Margen interno para el texto
+            texto_y = y_opcion + 10  # Margen interno
+            pygame.draw.rect(pantalla, opcion_colores[i], (50, 200 + i * 60, 700, 50))
+            mostrar_texto(pantalla, texto_opcion, (texto_x, texto_y), fuente_menu, COLOR_NEGRO)
+            estado_comodin_bomba["bandera_bomba"] = False
         #mostrar_texto(pantalla, texto_opcion, (60, 210 + i * 60), fuente_menu, COLOR_NEGRO)
 
     #todo# Mostrar resultado
