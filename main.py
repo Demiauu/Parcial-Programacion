@@ -5,7 +5,7 @@ from configuracion import (
     jugar,
     pausa,
     constantes,
-    funciones,
+    comodines,
     controles,
     opciones,
     ranking
@@ -57,6 +57,9 @@ while corriendo:
     #Se agrego la pantalla de controles.🌹
     elif ventana_actual == "controles":
         ventana_actual = controles.mostrar_controles(pantalla,cola_eventos)
+        audio.reproducir_musica(ventana_actual,datos_juego)
+    elif ventana_actual == "comodines":
+        ventana_actual = comodines.mostrar_comodines(pantalla,cola_eventos)
         audio.reproducir_musica(ventana_actual,datos_juego)
     elif ventana_actual == "salir":
         corriendo = False

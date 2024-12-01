@@ -157,18 +157,10 @@ def mostrar_opciones(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Even
 
     #///////////////////////////////////
 
-    #///////////////////////////////////
-
-    #dibujo el boton atras 👻
-    boton_volver["rectangulo"] = pantalla.blit(boton_volver["superficie"],(10,10))
-
-    #///////////////////////////////////
-
     boton_suma["rectangulo"] = pantalla.blit(boton_suma["superficie"],(583,150))
     boton_resta["rectangulo"] = pantalla.blit(boton_resta["superficie"],(20,150))
     boton_suma_click["rectangulo"] = pantalla.blit(boton_suma_click["superficie"],(583,240))
     boton_resta_click["rectangulo"] = pantalla.blit(boton_resta_click["superficie"],(20,240))
-    boton_volver["rectangulo"] = pantalla.blit(boton_volver["superficie"],(10,10))
     boton_controles["rectangulo"] = pantalla.blit(boton_controles["superficie"],(610,10))
     boton_desactivar_general["rectangulo"] = pantalla.blit(boton_desactivar_general["superficie"],(220,380))
     boton_desactivar_musica["rectangulo"] = pantalla.blit(boton_desactivar_musica["superficie"],(420,380))
@@ -177,7 +169,6 @@ def mostrar_opciones(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Even
     mostrar_texto(boton_resta["superficie"],"Volumen -",(4,15),fuente_boton,COLOR_NEGRO)
     mostrar_texto(boton_suma_click["superficie"],"Volumen +",(4,15),fuente_boton,COLOR_NEGRO)
     mostrar_texto(boton_resta_click["superficie"],"Volumen -",(4,15),fuente_boton,COLOR_NEGRO)
-    mostrar_texto(boton_volver["superficie"],"Volver",(15,15),fuente_boton,COLOR_BLANCO)
     mostrar_texto(boton_controles["superficie"],"Controles",(4,9),fuente_controles,COLOR_BLANCO)
     mostrar_texto(boton_desactivar_musica["superficie"],"Desactivar musica",(5,10),fuente_desactivar,COLOR_BLANCO)
     mostrar_texto(boton_desactivar_general["superficie"],"Desactivar sonidos",(5,10),fuente_desactivar,COLOR_BLANCO)
