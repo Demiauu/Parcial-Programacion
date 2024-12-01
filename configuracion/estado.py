@@ -8,5 +8,21 @@ estado_comodin_bomba = {
 }
 
 estado_uso_comodin_bomba = {
-    "bandera_uso":False
+    "bandera_uso_bomba":False
+}
+
+estado_comodin_saltar = {
+    "bandera_saltar":False
+}
+
+estado_uso_comodin_saltar = {
+    "bandera_uso_saltar":False
+}
+
+estado_comodin_doble_puntuacion = {
+    "bandera_doble_puntuacion":False
+}
+
+estado_uso_comodin_doble_puntuacion = {
+    "bandera_uso_doble_puntuacion":False
 }
