@@ -3,7 +3,6 @@ from configuracion import (
     audio,
     menu,
     jugar,
-    comodines,
     pausa,
     constantes,
     comodines,
@@ -21,10 +20,10 @@ pygame.display.set_icon(icono)
 pantalla = pygame.display.set_mode(constantes.VENTANA)
 corriendo = True
 
-datos_juego = {"puntuacion":0,
-               "vidas":constantes.CANTIDAD_VIDAS,
-               "nombre":"",
-               "volumen_juego":100,"volumen_clicks":100}
+datos_juego =  {"puntuacion":0,
+                "vidas":constantes.CANTIDAD_VIDAS,
+                "nombre":"",
+                "volumen_juego":100,"volumen_clicks":100}
 
 Reloj = pygame.time.Clock()
 
@@ -45,8 +44,6 @@ while corriendo:
     #Con esto muestra las opciones para configurar el sonido.🌹
         ventana_actual = jugar.mostrar_jugar(pantalla,cola_eventos)
         audio.reproducir_musica(ventana_actual,datos_juego)
-    elif ventana_actual == "comodines":
-        ventana_actual = comodines.mostrar_comodines(pantalla,cola_eventos)
     elif ventana_actual == "pausa":
         ventana_actual = pausa.mostrar_pausa(pantalla,cola_eventos)
     #Con esto muestra las opciones para configurar el sonido 🌹

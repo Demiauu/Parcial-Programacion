@@ -1,6 +1,8 @@
 import pygame 
 from .constantes import *
 from .funciones import mostrar_texto, crear_boton, cambiar_boton, leer_csv
+from .estado import *
+from .comodines import *
 import json
 
 pygame.init()
@@ -40,7 +42,7 @@ def dividir_texto(texto, fuente, ancho_maximo):
     """
     Divide el texto en múltiples líneas que no excedan el ancho máximo.
     """
-    palabras = texto.split()
+    palabras = str(texto).split()
     lineas = []
     linea_actual = ""
     
@@ -117,11 +119,17 @@ def mostrar_jugar(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
                     if respuesta_seleccionada == respuesta_correcta:
                         opcion_colores[i] = COLOR_VERDE
                         mensaje_resultado = "¡Correcto!"
-                        PUNTOS += 100
+                        if estado_comodin_doble_puntuacion["bandera_doble_puntuacion"] == False:
+                            PUNTOS += puntos_configuraciones
+                        else:
+                            # puntos_comodin = 20
+                            PUNTOS += puntos_doble_puntuacion(configuraciones)
+                            estado_comodin_doble_puntuacion["bandera_doble_puntuacion"] = False
+                        print(PUNTOS)
                     else:
                         opcion_colores[i] = COLOR_ROJO
                         mensaje_resultado = "Incorrecto"
-                        PUNTOS = max(0, PUNTOS - 25)
+                        PUNTOS = max(0, PUNTOS - configuraciones["puntos_error"])
                         VIDAS -= 1
                     
                     # if VIDAS == 0 or PUNTOS == 0:
@@ -135,7 +143,6 @@ def mostrar_jugar(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
 
                     mostrar_respuesta = True
                     temporizador = pygame.time.get_ticks()
-        
         #todo# CODIGO COMENTADO PARA REVISAR -> CONTIENE POSIBLE LOGICA DE PUNTAJE
         # if evento.type == pygame.KEYDOWN:
         #     if evento.key == pygame.K_RETURN:  # Enter para confirmar
@@ -175,7 +182,11 @@ def mostrar_jugar(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
     #dibujar fondo 👻
     mostrar_texto(pantalla, "Prueba", (100, 100), fuente_menu, COLOR_NEGRO)
     pantalla.blit(fondo, (0,0))
-
+    
+    #Verifica el uso del comodin de saltar pregunta.🌹
+    if estado_comodin_saltar["bandera_saltar"] == True:
+        pregunta_actual = (pregunta_actual + 1) % len(preguntas)  # Salta a la siguiente pregunta
+        estado_comodin_saltar["bandera_saltar"] = False
 
     #todo# Mostrar la pregunta actual
     pregunta = preguntas[pregunta_actual]["pregunta"]
@@ -190,14 +201,26 @@ def mostrar_jugar(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
 
     #todo# Mostrar opciones con colores
     claves_opciones = ["respuesta_1", "respuesta_2", "respuesta_3", "respuesta_4"]
+    #Verifica el uso del comodin bomba.🌹
     for i, clave_opcion in enumerate(claves_opciones):
-        texto_opcion = preguntas[pregunta_actual][clave_opcion]
-        x_opcion = margen_lateral
-        y_opcion = y_opcion_inicial + i * (alto_opcion + espacio_entre_opciones)
-        texto_x = x_opcion + 10  # Margen interno para el texto
-        texto_y = y_opcion + 10  # Margen interno
-        pygame.draw.rect(pantalla, opcion_colores[i], (50, 200 + i * 60, 700, 50))
-        mostrar_texto(pantalla, texto_opcion, (texto_x, texto_y), fuente_menu, COLOR_NEGRO)
+        if estado_comodin_bomba["bandera_bomba"] == False:
+            texto_opcion = preguntas[pregunta_actual][clave_opcion]
+            x_opcion = margen_lateral
+            y_opcion = y_opcion_inicial + i * (alto_opcion + espacio_entre_opciones)
+            texto_x = x_opcion + 10  # Margen interno para el texto
+            texto_y = y_opcion + 10  # Margen interno
+            pygame.draw.rect(pantalla, opcion_colores[i], (50, 200 + i * 60, 700, 50))
+            mostrar_texto(pantalla, texto_opcion, (texto_x, texto_y), fuente_menu, COLOR_NEGRO)
+        else:
+            desactivar_dos_respuestas(pregunta_actual, preguntas)
+            texto_opcion = preguntas[pregunta_actual][clave_opcion]
+            x_opcion = margen_lateral
+            y_opcion = y_opcion_inicial + i * (alto_opcion + espacio_entre_opciones)
+            texto_x = x_opcion + 10  # Margen interno para el texto
+            texto_y = y_opcion + 10  # Margen interno
+            pygame.draw.rect(pantalla, opcion_colores[i], (50, 200 + i * 60, 700, 50))
+            mostrar_texto(pantalla, texto_opcion, (texto_x, texto_y), fuente_menu, COLOR_NEGRO)
+            estado_comodin_bomba["bandera_bomba"] = False
         #mostrar_texto(pantalla, texto_opcion, (60, 210 + i * 60), fuente_menu, COLOR_NEGRO)
 
     #todo# Mostrar resultado
