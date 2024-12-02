@@ -9,7 +9,8 @@ from configuracion import (
     controles,
     opciones,
     modificaciones,
-    ranking
+    ranking,
+    funciones
 )
 
 pygame.init()
@@ -20,10 +21,14 @@ pygame.display.set_icon(icono)
 pantalla = pygame.display.set_mode(constantes.VENTANA)
 corriendo = True
 
+configuracion = funciones.leer_csv("configuracion\config.csv")
+
 datos_juego =  {"puntuacion":0,
-                "vidas":constantes.CANTIDAD_VIDAS,
+                "vidas":configuracion["vidas"],
                 "nombre":"",
                 "volumen_juego":100,"volumen_clicks":100}
+
+print(datos_juego["vidas"])
 
 Reloj = pygame.time.Clock()
 

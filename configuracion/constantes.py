@@ -1,5 +1,8 @@
 import pygame
+# from funciones import leer_csv
 pygame.mixer.init()
+
+# configuraciones = leer_csv("configuracion/config.csv")
 
 COLOR_BLANCO = (255,255,255)
 COLOR_NEGRO = (0,0,0)
@@ -42,10 +45,6 @@ SONIDO_MENU_COMODINES_OUT = pygame.mixer.Sound("sonidos/flash_reverb.wav")
 #sonido comodines 👻
 SONIDO_BOMBA = pygame.mixer.Sound("sonidos/bomba.wav")
 DOBLE_CHANCE = pygame.mixer.Sound("sonidos/doble_chance.wav")
-
-CANTIDAD_VIDAS = 3
-PUNTUACION_ACIERTO = 100
-PUNTUACION_ERROR = 25
 
 #todo# PUNTUACION
 GAME_OVER = False 

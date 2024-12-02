@@ -26,3 +26,7 @@ estado_comodin_doble_puntuacion = {
 estado_uso_comodin_doble_puntuacion = {
     "bandera_uso_doble_puntuacion":False
 }
+
+estado_guardar_config = {
+    "bandera_configuracion":False
+}

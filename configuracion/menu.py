@@ -1,6 +1,7 @@
 import pygame
 from .constantes import *
 from .funciones import mostrar_texto,crear_boton,cambiar_boton
+from .estado import estado_guardar_config
 
 pygame.init()
 #guarde la imagen en una variable para despues cambiarle el tamaño con .transform.scale 👻
@@ -20,7 +21,6 @@ boton_mod = crear_boton((48,30),"imagenes/boton_mod.png")
 def mostrar_menu(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event]) -> str:
     """esta funcion dibuja el menu al llamarla, recibe como primer parametro las dimensiones de la pantalla, 
     como segundo parametro la cola de eventos, devuelve un string. 👻"""
-
     retorno = "menu"
 
     #manejo de eventos 👻
@@ -70,6 +70,7 @@ def mostrar_menu(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event]) 
                 if pygame.mixer.music.get_busy():
                     pygame.mixer.music.stop()
                 CLICK_SOUND.play()
+                print(estado_guardar_config)
             elif boton_mod["rectangulo"].collidepoint(evento.pos):
                 retorno = "modificaciones"
                 if pygame.mixer.music.get_busy():

@@ -1,6 +1,6 @@
 opcion,valor
-puntos_acierto,10
-puntos_error,-5
-vidas,3
-temporizador,5
-cantidad_comodin,2
+puntos_acierto,25
+puntos_error,-10
+vidas,4
+temporizador,15
+comodines,2
