@@ -42,6 +42,10 @@ def mostrar_menu(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event]) 
                 cambiar_boton(boton_ranking,"imagenes/boton_ranking_on.png",TAMAÑO_BOTON,True)
             else:
                 cambiar_boton(boton_ranking,"imagenes/boton_ranking_on.png",TAMAÑO_BOTON,False)
+            if boton_mod["rectangulo"].collidepoint(evento.pos):
+                cambiar_boton(boton_mod,"imagenes/boton_mod_on.png",(48,30),True)
+            else:
+                cambiar_boton(boton_mod,"imagenes/boton_mod_on.png",(48,30),False)
             if boton_salir["rectangulo"].collidepoint(evento.pos):
                 cambiar_boton(boton_salir,"imagenes/boton_salir_on.png",(70,30),True)
                 CLICK_ON_SOUND.play()
@@ -63,6 +67,11 @@ def mostrar_menu(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event]) 
             elif boton_jugar["rectangulo"].collidepoint(evento.pos):
                 retorno = "jugar"
                 #detiene la musica para reproducir nueva 👻.
+                if pygame.mixer.music.get_busy():
+                    pygame.mixer.music.stop()
+                CLICK_SOUND.play()
+            elif boton_mod["rectangulo"].collidepoint(evento.pos):
+                retorno = "modificaciones"
                 if pygame.mixer.music.get_busy():
                     pygame.mixer.music.stop()
                 CLICK_SOUND.play()

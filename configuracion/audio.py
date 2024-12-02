@@ -35,6 +35,13 @@ def reproducir_musica(ventana_actual, datos_juego):
         pygame.mixer.Sound.set_volume(CLICK_ON_SOUND,datos_juego['volumen_clicks'] / 100)
         pygame.mixer.Sound.set_volume(CLICK_SOUND_OUT,datos_juego['volumen_clicks'] / 100)
         pygame.mixer.music.set_volume(datos_juego['volumen_juego'] / 100)
+    elif ventana_actual == "modificaciones":
+        ruta_musica = "sonidos/MITSKI - Washing machine heart.WAV"
+        #utiliza el volumen designado para la musica y el sonido de los clicks 🌹
+        pygame.mixer.Sound.set_volume(CLICK_SOUND,datos_juego['volumen_clicks'] / 100)
+        pygame.mixer.Sound.set_volume(CLICK_ON_SOUND,datos_juego['volumen_clicks'] / 100)
+        pygame.mixer.Sound.set_volume(CLICK_SOUND_OUT,datos_juego['volumen_clicks'] / 100)
+        pygame.mixer.music.set_volume(datos_juego['volumen_juego'] / 100) 
     else:
         return  #si no hay musica sale
     #si la musica ya está encendida no hace nda 👻

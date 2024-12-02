@@ -9,6 +9,7 @@ from configuracion import (
     comodines,
     controles,
     opciones,
+    modificaciones,
     ranking
 )
 
@@ -51,6 +52,10 @@ while corriendo:
     #Con esto muestra las opciones para configurar el sonido 🌹
     elif ventana_actual == "opciones":
         ventana_actual = opciones.mostrar_opciones(pantalla,cola_eventos,datos_juego)
+        #se escuche otra musica adentro de opciones.🌹
+        audio.reproducir_musica(ventana_actual,datos_juego)
+    elif ventana_actual == "modificaciones":
+        ventana_actual = modificaciones.mostrar_mod_menu(pantalla,cola_eventos,datos_juego)
         #se escuche otra musica adentro de opciones.🌹
         audio.reproducir_musica(ventana_actual,datos_juego)
     #se agrega el ranking 👻

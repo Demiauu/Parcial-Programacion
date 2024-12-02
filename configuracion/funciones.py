@@ -1,17 +1,26 @@
 import random
-from .constantes import *
+from constantes import *
 import pygame
 import csv
+import os
 
 def leer_csv(ruta_csv):
     """esta funcion recibe como parametro la ruta del csv y lo convierte en un diccionario 👻"""
     opciones = {}
     #abro el archivo en modo 'r' para solo lectura 👻
-    with open(ruta_csv, mode='r') as archivo:
-        lector_csv = csv.DictReader(archivo)
-        for fila in lector_csv:
-            opciones[fila["opcion"]] = int(fila["valor"])
-    return opciones
+    if os.path.exists(ruta_csv):
+        #cuando termina el with el interprete de python se encarga de cerrarlo solo 👻
+        with open(ruta_csv, mode='r') as archivo:
+            #meto los datos del csv dentro de una lista de diccionarios 👻
+            lector_csv = csv.DictReader(archivo)
+            print(type(lector_csv))
+            #recorremos la lista con un for y agregamos los elementos a un diccionario 👻
+            for fila in lector_csv:
+                opciones[fila["opcion"]] = int(fila["valor"])
+        return opciones
+    else:
+        print("ERROR, EL ARCHIVO NO EXISTE")
+        return
 
 def crear_boton(tamanio:tuple,imagen:str)->dict:
     """esta funcion crea botones, recibe el tamaño de la imagen como primer parametro y 
@@ -40,6 +49,28 @@ def cambiar_boton(boton:dict,imagen:str,tamanio:tuple,evento:bool):
     # Actualizar el rectángulo del botón 👻
     boton["rectangulo"] = boton["superficie"].get_rect()
     return boton
+
+def modificar_csv(nombre_archivo, clave, nuevo_valor):
+    # Leer los datos existentes del CSV
+    datos = []
+    with open(nombre_archivo, mode="r") as archivo:
+        #meto los datos del csv dentro de una lista de diccionarios 👻
+        #convierte cada fila en un diccionario 👻
+        lector = csv.DictReader(archivo)
+        #recorremos la lista con un for y agregamos los elementos a un diccionario 👻
+        for fila in lector:
+            if fila["opcion"] == clave:
+                #convierto el valor en cadena 👻
+                fila["valor"] = str(nuevo_valor)
+            datos.append(fila)
+
+    # Sobrescribir el archivo con los datos modificados
+    with open(nombre_archivo, mode="w") as archivo:
+        #sobrescribo 
+        campos = ["opcion", "valor"]
+        escritor = csv.DictWriter(archivo, fieldnames=campos)
+        escritor.writeheader()
+        escritor.writerows(datos)
 
 def mostrar_texto(surface, text, pos, font, color=pygame.Color('black')):
     words = [word.split(' ') for word in text.splitlines()]  # 2D array where each row is a list of words.
