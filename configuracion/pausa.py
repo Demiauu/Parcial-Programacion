@@ -60,6 +60,7 @@ def mostrar_pausa(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
                 CLICK_SOUND.play()
             elif boton_salir["rectangulo"].collidepoint(evento.pos):
                 retorno = "menu"
+                
                 #si se está reproduciendo musica se detiene 👻
                 if pygame.mixer.music.get_busy():
                     pygame.mixer.music.stop()

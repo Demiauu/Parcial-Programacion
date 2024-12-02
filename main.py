@@ -8,7 +8,9 @@ from configuracion import (
     comodines,
     controles,
     opciones,
-    ranking
+    modificaciones,
+    ranking,
+    funciones
 )
 
 pygame.init()
@@ -19,10 +21,14 @@ pygame.display.set_icon(icono)
 pantalla = pygame.display.set_mode(constantes.VENTANA)
 corriendo = True
 
+configuracion = funciones.leer_csv("configuracion\config.csv")
+
 datos_juego =  {"puntuacion":0,
-                "vidas":constantes.CANTIDAD_VIDAS,
+                "vidas":configuracion["vidas"],
                 "nombre":"",
                 "volumen_juego":100,"volumen_clicks":100}
+
+print(datos_juego["vidas"])
 
 Reloj = pygame.time.Clock()
 
@@ -48,6 +54,10 @@ while corriendo:
     #Con esto muestra las opciones para configurar el sonido 🌹
     elif ventana_actual == "opciones":
         ventana_actual = opciones.mostrar_opciones(pantalla,cola_eventos,datos_juego)
+        #se escuche otra musica adentro de opciones.🌹
+        audio.reproducir_musica(ventana_actual,datos_juego)
+    elif ventana_actual == "modificaciones":
+        ventana_actual = modificaciones.mostrar_mod_menu(pantalla,cola_eventos,datos_juego)
         #se escuche otra musica adentro de opciones.🌹
         audio.reproducir_musica(ventana_actual,datos_juego)
     #se agrega el ranking 👻

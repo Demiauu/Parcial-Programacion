@@ -2,6 +2,7 @@ import pygame
 from .constantes import *
 from .funciones import mostrar_texto, crear_boton, cambiar_boton, leer_csv
 from .estado import *
+from .estado import estado_guardar_config
 from .comodines import *
 import json
 
@@ -15,14 +16,19 @@ with open("configuracion/quiz.json", "r") as archivo:
 fondo_original = pygame.image.load("imagenes/jugar.png")
 fondo = pygame.transform.scale(fondo_original, (702,502))
 
-fuente_menu = pygame.font.SysFont("Pixel Operator 8",15)
+fuente_menu = pygame.font.SysFont("Pixel Operator 8",30)
 
-#todo# VARIABLES AUXILARES
+#leo el csv 👻
+configuraciones = leer_csv("configuracion\config.csv")
 #agrego el tiempo restante 👻
-configuraciones = leer_csv("configuracion\config.csv")  # Inicializa el temporizador global
 tiempo_restante = configuraciones["temporizador"]
+tiempo_restante_aux = tiempo_restante
 vidas = configuraciones["vidas"]
+vidas_aux = vidas
+primera_iteracion = False
+
 #//////////////
+#todo# VARIABLES AUXILARES
 pregunta_actual = 0
 opcion_colores = [COLOR_AZUL] * 4
 respuesta_seleccionada = None
@@ -66,15 +72,28 @@ def mostrar_jugar(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
     global mostrar_respuesta
     global temporizador
 
-    global tiempo_restante
-    global vidas
-    tiempo_restante_aux = tiempo_restante
+    global tiempo_restante,tiempo_restante_aux,primera_iteracion,estado_guardar_config
+    global vidas, vidas_aux
 
     global GAME_OVER
     global PUNTOS
     global VIDAS
     global SCORES
     global nombre
+    configuraciones = leer_csv("configuracion/config.csv")
+
+    #si detecta una modificación vuelve a leer el archivo csv 👻
+    if estado_guardar_config["bandera_configuracion"]:
+        #configuraciones = leer_csv("configuracion\config.csv")
+
+        tiempo_restante = configuraciones["temporizador"]
+        tiempo_restante_aux = tiempo_restante
+
+        vidas = configuraciones["vidas"]
+        vidas_aux = vidas
+
+        estado_guardar_config["bandera_configuracion"] = False
+
 
     x_texto = ANCHO // 2
     y_texto = ALTO // 10  # Margen superior
@@ -177,6 +196,7 @@ def mostrar_jugar(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
     #     SCORES = []  # Si no existe el archivo, inicializa una lista vacía
 
     #pantalla.fill(COLOR_BLANCO)
+    
     #dibujar fondo 👻
     mostrar_texto(pantalla, "Prueba", (100, 100), fuente_menu, COLOR_NEGRO)
     pantalla.blit(fondo, (0,0))
@@ -195,6 +215,7 @@ def mostrar_jugar(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
         y_texto = ALTO // 8 + i * 40  # Ajustamos el margen superior y espaciado
         mostrar_texto(pantalla, linea, (x_texto, y_texto), fuente_menu, COLOR_NEGRO)
         #mostrar_texto(pantalla, linea, (50, 50 + i * 40), fuente_menu, COLOR_NEGRO)  #todo# Ajusta el espaciado entre líneas
+
 
     #todo# Mostrar opciones con colores
     claves_opciones = ["respuesta_1", "respuesta_2", "respuesta_3", "respuesta_4"]
@@ -232,7 +253,7 @@ def mostrar_jugar(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
         pregunta_actual = (pregunta_actual + 1) % len(preguntas)
         opcion_colores = [COLOR_AZUL] * 4  # Reiniciar colores
         mensaje_resultado = ""
-        mostrar_respuesta = False
+        mostrar_respuesta = False          
         #////////////////////////////////////
     # #evento quit
     # if evento.type == pygame.QUIT:
@@ -244,18 +265,22 @@ def mostrar_jugar(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
     if tiempo_restante > 0:
         tiempo_restante -= 1 / 60  # Reducir el tiempo restante por fotograma (asume 60 FPS)
     else:
-        tiempo_restante = tiempo_restante_aux
         vidas -= 1
-        
-        print(vidas)
-
-    # Mostrar el temporizador global
+        tiempo_restante = tiempo_restante_aux
+    
+    if vidas == 0:
+        retorno = "menu"
+        vidas = vidas_aux
+    
+    #le damos formato al temporizador 👻
     minutos = int(tiempo_restante // 60)
     segundos = int(tiempo_restante % 60)
     tiempo_formateado = f"{minutos:02}:{segundos:02}"
-    texto_temporizador = fuente_menu.render(tiempo_formateado, True, COLOR_BLANCO)
-    pantalla.blit(texto_temporizador, (ANCHO - 150, 10))  # Posición del temporizador en pantalla
-    
+
+    #mostramos las vidas y el reloj 👻
+    mostrar_texto(pantalla,tiempo_formateado,(ANCHO-160,20),fuente,COLOR_BLANCO)
+    mostrar_texto(pantalla,f"vidas: {vidas}",(60,20),fuente,COLOR_BLANCO)
+    #se agregar las vidas 👻
     pygame.display.flip()
     
     return retorno

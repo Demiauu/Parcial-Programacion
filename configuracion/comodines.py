@@ -3,7 +3,7 @@ import random
 import json
 import csv
 from .constantes import *
-from .funciones import crear_boton, cambiar_boton
+from .funciones import crear_boton, cambiar_boton, leer_csv
 from .jugar import *
 from .estado import *
 
@@ -12,7 +12,7 @@ pygame.init()
 fondo_original = pygame.image.load("imagenes/comodines.png")
 fondo = pygame.transform.scale(fondo_original, (702,502))
 
-fuente = pygame.font.SysFont("Pixel Operator 8",30)
+fuente = pygame.font.SysFont("Pixel Operator 8",20)
 
 #creo los botones llamando a la funcion de crear botones👻
 boton_bomba = crear_boton(TAMAÑO_COMODINES,"imagenes/bomba.png")
