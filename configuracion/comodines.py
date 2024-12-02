@@ -55,13 +55,14 @@ def segunda_chance(pregunta_actual,preguntas):
     respuesta_correcta = preguntas[pregunta_actual]["respuesta_correcta"]
     pregunta = preguntas[pregunta_actual]
 
-    if pregunta[respuesta] != respuesta_correcta:
+    if pregunta[respuesta] != respuesta_correcta and estado_uso_comodin_segunda_chance["bandera_uso_segunda_chance"] == True:
         if estado_uso_comodin_segunda_chance["bandera_uso_segunda_chance"] == True:
             for respuesta in respuestas:
-                incorrecta = pregunta[respuesta]
-                sacar_opcion = random.choice(incorrecta)
-                pregunta[sacar_opcion] = ""
+                incorrecta = respuesta_seleccionada
+                sacar_respuesta = incorrecta
+                pregunta[sacar_respuesta] = ""
 
+    return respuesta_seleccionada == respuesta_correcta
 
 #Funcion para abrir la ventana de los comodines.🌹
 def mostrar_comodines(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event]) -> str:
