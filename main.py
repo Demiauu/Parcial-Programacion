@@ -29,7 +29,7 @@ Reloj = pygame.time.Clock()
 ventana_actual = "menu"
 
 while corriendo:
-    Reloj.tick(constantes.FPS)  
+    Reloj.tick(constantes.FPS)
     cola_eventos = pygame.event.get()
     #eventos 
     pantalla.fill(constantes.COLOR_BLANCO)

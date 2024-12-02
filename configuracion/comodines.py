@@ -27,6 +27,7 @@ configuraciones = leer_csv("configuracion\config.csv")
 
 puntos_configuraciones = configuraciones["puntos_acierto"]
 
+#Funcion para el comodin de doble puntuacion.🌹
 def puntos_doble_puntuacion(configuraciones):
     if estado_comodin_doble_puntuacion["bandera_doble_puntuacion"] == True:
         configuraciones["puntos_acierto"] = puntos_configuraciones * 2
@@ -48,6 +49,19 @@ def desactivar_dos_respuestas(pregunta_actual,preguntas):
 
     for respuesta in desactivar_distintas:
         pregunta[respuesta] = ""
+
+def segunda_chance(pregunta_actual,preguntas):
+    respuestas = ["respuesta_1", "respuesta_2", "respuesta_3", "respuesta_4"]
+    respuesta_correcta = preguntas[pregunta_actual]["respuesta_correcta"]
+    pregunta = preguntas[pregunta_actual]
+
+    if pregunta[respuesta] != respuesta_correcta:
+        if estado_uso_comodin_segunda_chance["bandera_uso_segunda_chance"] == True:
+            for respuesta in respuestas:
+                incorrecta = pregunta[respuesta]
+                sacar_opcion = random.choice(incorrecta)
+                pregunta[sacar_opcion] = ""
+
 
 #Funcion para abrir la ventana de los comodines.🌹
 def mostrar_comodines(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event]) -> str:
