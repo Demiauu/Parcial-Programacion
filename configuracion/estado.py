@@ -27,6 +27,14 @@ estado_uso_comodin_doble_puntuacion = {
     "bandera_uso_doble_puntuacion":False
 }
 
+estado_comodin_segunda_chance = {
+    "bandera_segunda_chance":False
+}
+
+estado_uso_comodin_segunda_chance = {
+    "bandera_uso_segunda_chance":False
+}
+
 estado_guardar_config = {
     "bandera_configuracion":False
 }
