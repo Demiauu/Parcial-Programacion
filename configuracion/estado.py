@@ -42,3 +42,7 @@ estado_guardar_config = {
 estado_boton = {
     "bandera_boton":False
 }
+
+estado_ranking = {
+    "bandera_ranking":False
+}

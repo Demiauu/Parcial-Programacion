@@ -8,6 +8,7 @@ def leer_csv(ruta_csv):
     """esta funcion recibe como parametro la ruta del csv y lo convierte en un diccionario 👻"""
     opciones = {}
     #abro el archivo en modo 'r' para solo lectura 👻
+    
     if os.path.exists(ruta_csv):
         #cuando termina el with el interprete de python se encarga de cerrarlo solo 👻
         with open(ruta_csv, mode='r') as archivo:
@@ -17,6 +18,7 @@ def leer_csv(ruta_csv):
             for fila in lector_csv:
             # Usa el valor de la columna "opcion" como clave y convierte "valor" a entero antes de asignarlo. 👻
                 opciones[fila["opcion"]] = int(fila["valor"])
+        #print(opciones)
         return opciones
     else:
         print("ERROR, EL ARCHIVO NO EXISTE")
@@ -79,6 +81,39 @@ def modificar_csv(nombre_archivo, clave, nuevo_valor):
         escritor = csv.DictWriter(archivo, fieldnames=cabecera)
         escritor.writeheader()
         escritor.writerows(datos)
+
+def guardar_puntaje(nombre_archivo, nombre_jugador, puntuacion):
+    """
+    Guarda un puntaje y el nombre del jugador en un archivo CSV.
+
+    :param nombre_archivo: Nombre del archivo CSV donde se guardará el puntaje.
+    :param nombre_jugador: Nombre del jugador.
+    :param puntuacion: Puntuación del jugador.
+    """
+    try:
+        with open(nombre_archivo, 'a', encoding='utf-8') as archivo:
+            archivo.write(f'{nombre_jugador},{puntuacion}\n')
+        print(f"Puntuación guardada: {nombre_jugador} - {puntuacion}")
+    except Exception as e:
+        print(f"Ocurrió un error al guardar la puntuación: {e}")
+
+def leer_csv_sin_cabecera(ruta_csv):
+    """Esta función recibe como parámetro la ruta del CSV sin cabecera y lo convierte en un diccionario 👻."""
+    opciones = {}
+    
+    if os.path.exists(ruta_csv):
+        with open(ruta_csv, mode='r') as archivo:
+            lector_csv = csv.reader(archivo)
+            for fila in lector_csv:
+                if len(fila) >= 2:  
+                    opciones[fila[0]] = int(fila[1])
+                else:
+                    print(f"Advertencia: Fila incompleta ignorada: {fila}")
+        #print(opciones)
+        return opciones
+    else:
+        print("ERROR, EL ARCHIVO NO EXISTE")
+        return {}
 
 def mostrar_texto(surface, text, pos, font, color=pygame.Color('black')):
     words = [word.split(' ') for word in text.splitlines()]  # 2D array where each row is a list of words.

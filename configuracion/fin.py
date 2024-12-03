@@ -1,5 +1,5 @@
 import pygame
-from .funciones import mostrar_texto
+from .funciones import mostrar_texto,guardar_puntaje
 from .constantes import *
 
 
@@ -32,9 +32,11 @@ def mostrar_fin_juego(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Eve
             # bloc_mayus = pygame.key.get_mods() and pygame.KMOD_SHIFT
             # print(bloc_mayus)
             tecla = pygame.key.name(evento.key) 
+            
+            if tecla == "return" and len(nombre) > 0:
+                guardar_puntaje("configuracion\puntuaciones.csv",nombre,SCORES)
+                retorno = "menu"
 
-            if tecla == "enter" and len(nombre) > 0:
-                pass
             elif tecla == "space":
                 nombre += " "
 

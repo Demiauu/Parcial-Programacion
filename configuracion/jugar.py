@@ -80,11 +80,11 @@ def mostrar_jugar(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
     global VIDAS
     global SCORES
     global nombre
-    configuraciones = leer_csv("configuracion/config.csv")
+    #configuraciones = leer_csv("configuracion/config.csv")
 
     #si detecta una modificación vuelve a leer el archivo csv 👻
     if estado_guardar_config["bandera_configuracion"]:
-        #configuraciones = leer_csv("configuracion\config.csv")
+        configuraciones = leer_csv("configuracion\config.csv")
 
         tiempo_restante = configuraciones["temporizador"]
         tiempo_restante_aux = tiempo_restante
