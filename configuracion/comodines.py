@@ -56,13 +56,11 @@ def segunda_chance(pregunta_actual,preguntas):
     pregunta = preguntas[pregunta_actual]
 
     if pregunta[respuesta] != respuesta_correcta and estado_uso_comodin_segunda_chance["bandera_uso_segunda_chance"] == True:
-        if estado_uso_comodin_segunda_chance["bandera_uso_segunda_chance"] == True:
             for respuesta in respuestas:
                 incorrecta = respuesta_seleccionada
                 sacar_respuesta = incorrecta
                 pregunta[sacar_respuesta] = ""
 
-    return respuesta_seleccionada == respuesta_correcta
 
 #Funcion para abrir la ventana de los comodines.🌹
 def mostrar_comodines(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event]) -> str:
@@ -81,30 +79,35 @@ def mostrar_comodines(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Eve
         #metemos la logica de los botones 👻
         if evento.type == pygame.MOUSEBUTTONDOWN:
             if boton_bomba["rectangulo"].collidepoint(evento.pos):
-                if estado_uso_comodin_bomba["bandera_uso_bomba"] == False:
-                    estado_uso_comodin_bomba["bandera_uso_bomba"] = True
+                if configuraciones["comodines"] > 0:
+                    configuraciones["comodines"] -= 1
+                if estado_uso_comodin_bomba["bandera_uso_bomba"] == True or configuraciones["comodines"] == 0:
+                    retorno = "jugar"    
+                elif estado_uso_comodin_bomba["bandera_uso_bomba"] == False:
                     estado_comodin_bomba["bandera_bomba"] = True
-                    retorno = "jugar"
-                    SONIDO_BOMBA.play()
-                elif estado_uso_comodin_bomba["bandera_uso_bomba"] == True:
-                    retorno = "jugar"
+                    estado_uso_comodin_bomba["bandera_uso_bomba"] = True
+                retorno = "jugar"
             elif boton_doble_chance["rectangulo"].collidepoint(evento.pos):
                 retorno = "jugar"
                 DOBLE_CHANCE.play()
             elif boton_x2["rectangulo"].collidepoint(evento.pos):
-                if estado_uso_comodin_doble_puntuacion["bandera_uso_doble_puntuacion"] == False:
-                    estado_uso_comodin_doble_puntuacion["bandera_uso_doble_puntuacion"] = True
+                if configuraciones["comodines"] > 0:
+                    configuraciones["comodines"] -= 1
+                if estado_uso_comodin_doble_puntuacion["bandera_uso_doble_puntuacion"] == True or configuraciones["comodines"] == 0:
+                    retorno = "jugar"                    
+                elif estado_uso_comodin_doble_puntuacion["bandera_uso_doble_puntuacion"] == False:
                     estado_comodin_doble_puntuacion["bandera_doble_puntuacion"] = True
-                    retorno = "jugar"
-                elif estado_uso_comodin_doble_puntuacion["bandera_uso_doble_puntuacion"] == True:
-                    retorno = "jugar"
+                    estado_uso_comodin_doble_puntuacion["bandera_uso_doble_puntuacion"] = True
+                retorno = "jugar"
             elif boton_pasar["rectangulo"].collidepoint(evento.pos):
-                if estado_uso_comodin_saltar["bandera_uso_saltar"] == False:
-                    estado_uso_comodin_saltar["bandera_uso_saltar"] = True
+                if configuraciones["comodines"] > 0:
+                    configuraciones["comodines"] -= 1
+                if estado_uso_comodin_saltar["bandera_uso_saltar"] == True and configuraciones["comodines"] == 0:
+                    retorno = "jugar"    
+                elif estado_uso_comodin_saltar["bandera_uso_saltar"] == False:
                     estado_comodin_saltar["bandera_saltar"] = True
-                    retorno = "jugar"
-                elif estado_uso_comodin_saltar["bandera_uso_saltar"] == True:
-                    retorno = "jugar"
+                    estado_uso_comodin_saltar["bandera_uso_saltar"] = True
+                retorno = "jugar"
 
         #evento quit 👻
         if evento.type == pygame.QUIT:
