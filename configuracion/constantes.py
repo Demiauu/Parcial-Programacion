@@ -10,10 +10,13 @@ COLOR_VERDE = (0,255,0)
 COLOR_ROJO = (255,0,0)
 COLOR_AZUL = (0,0,255)
 COLOR_VIOLETA = (134,23,219)
+COLOR_BOTON_AZUL = (0,32,36)
 ANCHO = 700
 ALTO = 500
 VENTANA = (ANCHO,ALTO)
 FPS = 60
+
+#PUNTUACION = 
 
 #todo# VARIABLE PARA ACCEDER A LA VENTANA
 PANTALLA = pygame.display.set_mode(VENTANA)
@@ -52,3 +55,19 @@ SCORES = []
 PUNTOS = 0
 VIDAS = 3 
 
+x_texto = ANCHO // 2
+y_texto = ALTO // 10  # Margen superior
+margen_lateral = 50
+ancho_opcion = ANCHO - 2 * margen_lateral  # Ancho del rectﾃ｡ngulo
+alto_opcion = 50  # Altura fija
+espacio_entre_opciones = 20  # Espacio vertical entre opciones
+
+# Coordenadas iniciales para las opciones
+x_opcion = margen_lateral 
+y_opcion_inicial = ALTO // 3
+
+# Variables del botﾃｳn
+x_boton = 50
+y_boton = 100
+ancho_boton = 610
+alto_boton = 90

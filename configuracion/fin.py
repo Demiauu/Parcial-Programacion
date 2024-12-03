@@ -34,7 +34,7 @@ def mostrar_fin_juego(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Eve
             tecla = pygame.key.name(evento.key) 
             
             if tecla == "return" and len(nombre) > 0:
-                guardar_puntaje("configuracion\puntuaciones.csv",nombre,SCORES)
+                guardar_puntaje("configuracion\puntuaciones.csv",nombre,PUNTOS)
                 retorno = "menu"
 
             elif tecla == "space":

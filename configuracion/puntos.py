@@ -1,0 +1,3 @@
+puntos = {
+    "puntaje":0
+}

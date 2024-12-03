@@ -4,6 +4,7 @@ from configuracion import (
     fin,
     menu,
     jugar,
+    auxiliar,
     pausa,
     constantes,
     comodines,
@@ -27,7 +28,7 @@ configuracion = funciones.leer_csv("configuracion\config.csv")
 datos_juego =  {"puntuacion":0,
                 "vidas":configuracion["vidas"],
                 "nombre":"",
-                "volumen_juego":100,"volumen_clicks":100}       
+                "volumen_juego":100,"volumen_clicks":100}    
 
 Reloj = pygame.time.Clock()
 

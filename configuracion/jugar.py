@@ -5,6 +5,7 @@ from .estado import *
 from .estado import estado_guardar_config
 from .comodines import *
 import json
+from .puntos import puntos
 
 pygame.init()
 
@@ -72,11 +73,11 @@ def mostrar_jugar(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
     global mostrar_respuesta
     global temporizador
 
-    global tiempo_restante,tiempo_restante_aux,primera_iteracion,estado_guardar_config
+    global tiempo_restante,tiempo_restante_aux,primera_iteracion,estado_guardar_config,configuraciones
     global vidas, vidas_aux
 
     global GAME_OVER
-    global PUNTOS
+    global PUNTOS,puntos
     global VIDAS
     global SCORES
     global nombre
@@ -139,63 +140,23 @@ def mostrar_jugar(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
                         mensaje_resultado = "¡Correcto!"
                         if estado_comodin_doble_puntuacion["bandera_doble_puntuacion"] == False:
                             PUNTOS += puntos_configuraciones
+                            puntos["puntaje"] += puntos_configuraciones
                         else:
                             # puntos_comodin = 20
                             PUNTOS += puntos_doble_puntuacion(configuraciones)
                             estado_comodin_doble_puntuacion["bandera_doble_puntuacion"] = False
+                            puntos["puntaje"] += puntos_configuraciones
                         print(PUNTOS)
                     else:
                         opcion_colores[i] = COLOR_ROJO
                         mensaje_resultado = "Incorrecto"
                         PUNTOS = max(0, PUNTOS - configuraciones["puntos_error"])
-                        VIDAS -= 1
-                    
-                    # if VIDAS == 0 or PUNTOS == 0:
-                    #     GAME_OVER = True #*INTERRUMPIR LA EJECUCION CUANDO LAS VIDAS LLEGUEN A 0. TIENE QUE MOSTRAR LOS RESULTADOS FINAL Y PEDIR NOMBRE
-                    #     #*CONTINUAR.
-                    #     print("GAME OVER")
-                    #     if GAME_OVER:
-                    #         pantalla.fill(COLOR_BLANCO)
-                    #         mostrar_texto("GAME OVER", ANCHO // 2 - 100, ALTO // 2 - 100, COLOR_ROJO)
-                    #         mostrar_texto(f"Puntaje final: {PUNTOS}", ANCHO // 2 - 150, ALTO // 2 - 50, COLOR_NEGRO)
+                        puntos["puntaje"] = max(0, PUNTOS - configuraciones["puntos_error"])
+                        vidas -= 1
 
                     mostrar_respuesta = True
                     temporizador = pygame.time.get_ticks()
-        #todo# CODIGO COMENTADO PARA REVISAR -> CONTIENE POSIBLE LOGICA DE PUNTAJE
-        # if evento.type == pygame.KEYDOWN:
-        #     if evento.key == pygame.K_RETURN:  # Enter para confirmar
-        #         SCORES.append({"nombre": nombre, "puntaje": PUNTOS}) # Guardar score
-        #         with open("scores.json", "w") as archivo:  # Guardar en archivo JSON
-        #             json.dump(SCORES, archivo, indent=4) # Reiniciar variables para reiniciar el juego
 
-        #             pregunta_actual = 0
-        #             PUNTOS = 0
-        #             VIDAS = 3
-        #             GAME_OVER = False
-        #             nombre = ""
-        #             break
-
-        #     elif evento.key == pygame.K_BACKSPACE:  # Borrar último carácter
-        #             nombre = nombre[:-1]
-        #     else:
-        #             nombre += evento.unicode  # Agregar carácter al nombre
-
-    # pantalla.fill(BLANCO)
-    # mostrar_texto("GAME OVER", ANCHO // 2 - 100, ALTO // 2 - 100, ROJO)
-    # mostrar_texto(f"Puntaje final: {PUNTOS}", ANCHO // 2 - 150, ALTO // 2 - 50, NEGRO)
-    # mostrar_texto("Ingresa tu nombre: " + nombre, ANCHO // 2 - 200, ALTO // 2, NEGRO)
-    # pygame.display.flip()
-
-    # mostrar_texto(f"Puntaje: {PUNTOS}", 50, 10, NEGRO)
-    # mostrar_texto(f"Vidas: {VIDAS}", ANCHO - 150, 10, ROJO)
-
-    # try:
-    #     with open("scores.json", "r") as archivo:
-    #         SCORES = json.load(archivo)  # Carga los puntajes existentes
-    # except FileNotFoundError:
-    #     SCORES = []  # Si no existe el archivo, inicializa una lista vacía
-
-    #pantalla.fill(COLOR_BLANCO)
     
     #dibujar fondo 👻
     mostrar_texto(pantalla, "Prueba", (100, 100), fuente_menu, COLOR_NEGRO)
@@ -255,15 +216,9 @@ def mostrar_jugar(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
         mensaje_resultado = ""
         mostrar_respuesta = False          
         #////////////////////////////////////
-    # #evento quit
-    # if evento.type == pygame.QUIT:
-    #     retorno = "salir"
-    #actualizar el juego
 
-    #se agrega el reloj 👻
-    # Actualizar el tiempo restante
     if tiempo_restante > 0:
-        tiempo_restante -= 1 / 60  # Reducir el tiempo restante por fotograma (asume 60 FPS)
+        tiempo_restante -= 1 / 60  
     else:
         vidas -= 1
         tiempo_restante = tiempo_restante_aux

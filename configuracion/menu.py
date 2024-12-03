@@ -2,6 +2,7 @@ import pygame
 from .constantes import *
 from .funciones import mostrar_texto,crear_boton,cambiar_boton
 from .estado import estado_boton
+from .puntos import puntos
 
 pygame.init()
 #guarde la imagen en una variable para despues cambiarle el tamaño con .transform.scale 👻
@@ -23,7 +24,7 @@ def mostrar_menu(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event]) 
     como segundo parametro la cola de eventos, devuelve un string. 👻"""
     retorno = "menu"
 
-    global estado_boton
+    global estado_boton,PUNTOS,puntos
 
     #manejo de eventos 👻
     for evento in cola_eventos:
@@ -34,6 +35,7 @@ def mostrar_menu(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event]) 
                     CLICK_ON_SOUND.play()
                 cambiar_boton(boton_jugar,"imagenes/boton_jugar_on.png",TAMAÑO_BOTON,True)
                 estado_boton["bandera_boton"] = True
+                puntos["puntaje"] = 0
             else:
                 cambiar_boton(boton_jugar,"imagenes/boton_jugar_on.png",TAMAÑO_BOTON,False)
             

@@ -91,7 +91,7 @@ def guardar_puntaje(nombre_archivo, nombre_jugador, puntuacion):
     :param puntuacion: Puntuación del jugador.
     """
     try:
-        with open(nombre_archivo, 'a', encoding='utf-8') as archivo:
+        with open(nombre_archivo, 'a', newline='', encoding='utf-8') as archivo:
             archivo.write(f'{nombre_jugador},{puntuacion}\n')
         print(f"Puntuación guardada: {nombre_jugador} - {puntuacion}")
     except Exception as e:
