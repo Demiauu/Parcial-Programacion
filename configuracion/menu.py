@@ -1,7 +1,7 @@
 import pygame
 from .constantes import *
 from .funciones import mostrar_texto,crear_boton,cambiar_boton
-from .estado import estado_guardar_config
+from .estado import estado_boton
 
 pygame.init()
 #guarde la imagen en una variable para despues cambiarle el tamaño con .transform.scale 👻
@@ -23,34 +23,48 @@ def mostrar_menu(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event]) 
     como segundo parametro la cola de eventos, devuelve un string. 👻"""
     retorno = "menu"
 
+    global estado_boton
+
     #manejo de eventos 👻
     for evento in cola_eventos:
         if evento.type == pygame.MOUSEMOTION:
             #se actualizan las imagenes dependiendo si el mouse está encima del botón o no 👻
             if boton_jugar["rectangulo"].collidepoint(evento.pos):
-                CLICK_ON_SOUND.play()
+                if estado_boton["bandera_boton"] == False:
+                    CLICK_ON_SOUND.play()
                 cambiar_boton(boton_jugar,"imagenes/boton_jugar_on.png",TAMAÑO_BOTON,True)
+                estado_boton["bandera_boton"] = True
             else:
                 cambiar_boton(boton_jugar,"imagenes/boton_jugar_on.png",TAMAÑO_BOTON,False)
+            
             if boton_opciones["rectangulo"].collidepoint(evento.pos):
-                CLICK_ON_SOUND.play()
+                if estado_boton["bandera_boton"] == False:
+                    CLICK_ON_SOUND.play()
                 cambiar_boton(boton_opciones,"imagenes/boton_opciones_on.png",TAMAÑO_BOTON,True)
+                estado_boton["bandera_boton"] = True
             else:
                 cambiar_boton(boton_opciones,"imagenes/boton_opciones_on.png",TAMAÑO_BOTON,False)
+                
             if boton_ranking["rectangulo"].collidepoint(evento.pos):
-                CLICK_ON_SOUND.play()
+                if estado_boton["bandera_boton"] == False:
+                    CLICK_ON_SOUND.play()
                 cambiar_boton(boton_ranking,"imagenes/boton_ranking_on.png",TAMAÑO_BOTON,True)
+                estado_boton["bandera_boton"] = True
             else:
                 cambiar_boton(boton_ranking,"imagenes/boton_ranking_on.png",TAMAÑO_BOTON,False)
+                
             if boton_mod["rectangulo"].collidepoint(evento.pos):
                 cambiar_boton(boton_mod,"imagenes/boton_mod_on.png",(48,30),True)
             else:
                 cambiar_boton(boton_mod,"imagenes/boton_mod_on.png",(48,30),False)
             if boton_salir["rectangulo"].collidepoint(evento.pos):
                 cambiar_boton(boton_salir,"imagenes/boton_salir_on.png",(70,30),True)
-                CLICK_ON_SOUND.play()
+                if estado_boton["bandera_boton"] == False:
+                    CLICK_ON_SOUND.play()
+                estado_boton["bandera_boton"] = True
             else:
                 cambiar_boton(boton_salir,"imagenes/boton_salir_on.png",(70,30),False)
+                estado_boton["bandera_boton"] = False
 
             
         #agrego la interacción de boton puntuaciones 👻
@@ -70,7 +84,6 @@ def mostrar_menu(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event]) 
                 if pygame.mixer.music.get_busy():
                     pygame.mixer.music.stop()
                 CLICK_SOUND.play()
-                print(estado_guardar_config)
             elif boton_mod["rectangulo"].collidepoint(evento.pos):
                 retorno = "modificaciones"
                 if pygame.mixer.music.get_busy():

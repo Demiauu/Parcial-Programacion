@@ -26,7 +26,7 @@ def mostrar_controles(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Eve
                 CLICK_SOUND.play()
                 retorno = "opciones"
         #agregamos la interaccion de mouse on en el boton atras👻
-        if evento.type == pygame.MOUSEMOTION:
+        elif evento.type == pygame.MOUSEMOTION:
             if boton_volver["rectangulo"].collidepoint(evento.pos):
                 cambiar_boton(boton_volver,"imagenes/boton_atras_on.png",(70,30),True)
             else:

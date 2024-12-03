@@ -1,6 +1,7 @@
 import pygame
 from configuracion import (
     audio,
+    fin,
     menu,
     jugar,
     pausa,
@@ -26,9 +27,7 @@ configuracion = funciones.leer_csv("configuracion\config.csv")
 datos_juego =  {"puntuacion":0,
                 "vidas":configuracion["vidas"],
                 "nombre":"",
-                "volumen_juego":100,"volumen_clicks":100}
-
-print(datos_juego["vidas"])
+                "volumen_juego":100,"volumen_clicks":100}       
 
 Reloj = pygame.time.Clock()
 
@@ -70,6 +69,9 @@ while corriendo:
         audio.reproducir_musica(ventana_actual,datos_juego)
     elif ventana_actual == "comodines":
         ventana_actual = comodines.mostrar_comodines(pantalla,cola_eventos)
+        audio.reproducir_musica(ventana_actual,datos_juego)
+    elif ventana_actual == "fin_juego":
+        ventana_actual = fin.mostrar_fin_juego(pantalla,cola_eventos)
         audio.reproducir_musica(ventana_actual,datos_juego)
     elif ventana_actual == "salir":
         corriendo = False

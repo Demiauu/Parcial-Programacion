@@ -30,3 +30,7 @@ estado_uso_comodin_doble_puntuacion = {
 estado_guardar_config = {
     "bandera_configuracion":False
 }
+
+estado_boton = {
+    "bandera_boton":False
+}

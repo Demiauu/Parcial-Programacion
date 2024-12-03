@@ -269,7 +269,9 @@ def mostrar_jugar(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
         tiempo_restante = tiempo_restante_aux
     
     if vidas == 0:
-        retorno = "menu"
+        retorno = "fin_juego"
+        if pygame.mixer.music.get_busy():
+                    pygame.mixer.music.stop()
         vidas = vidas_aux
     
     #le damos formato al temporizador 👻
