@@ -3,6 +3,7 @@ from .constantes import *
 from .funciones import mostrar_texto, crear_boton, cambiar_boton, leer_csv, mezclar_lista
 from .estado import *
 from .comodines import *
+from .puntos import puntos
 import json
 
 pygame.init()
@@ -22,6 +23,7 @@ fuente_respuestas_evento = pygame.font.SysFont("Pixel Operator 8", 15)
 configuraciones = leer_csv("configuracion\config.csv")  # Inicializa el temporizador global
 tiempo_restante = configuraciones["temporizador"]
 vidas = configuraciones["vidas"]
+aciertos = 0
 
 pregunta_actual = 0
 opcion_colores = [COLOR_BOTON_AZUL] * 4 #! QUITAR
@@ -83,8 +85,9 @@ def mostrar_jugar(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
     retorno = "jugar"
     claves_opciones = ["respuesta_1", "respuesta_2", "respuesta_3", "respuesta_4"]
 
-    global tiempo_restante,tiempo_restante_aux,primera_iteracion,estado_guardar_config
-    global vidas, vidas_aux
+    global tiempo_restante,tiempo_restante_aux,primera_iteracion,estado_guardar_config, configuraciones
+    global preguntas, pregunta_actual
+    global vidas, vidas_aux, aciertos
 
     #si detecta una modificación vuelve a leer el archivo csv 👻
     if estado_guardar_config["bandera_configuracion"]:
@@ -113,37 +116,25 @@ def mostrar_jugar(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
         
         elif event.type == pygame.MOUSEBUTTONDOWN and not mostrar_respuesta:
             x, y = pygame.mouse.get_pos()
-            # x = mouse[0] #posicion x
-            # y = mouse[1]
-            print(x, y)
+          
             validacion_pregunta(claves_opciones, x, y, pantalla)
+        if event.type == pygame.MOUSEMOTION:
+            pass
             
-        #! AGREGAR LOOPS DE PREGUNTAS Y RESPUESTAS; CONFIRMAR
-        #!FINALMENTE AJUSTAR
     
     pantalla.blit(fondo, (0,0))
 
-        
-        # elif event.type == pygame.MOUSEMOTION:
-        #     mouse = pygame.mouse.get_pos()
-            #x = mouse[0] #posicion x
-            #y = mouse[1]
-            #print(mouse)
-
-    #tiempo_restante_aux = tiempo_restante
     preguntas_respuestas(pantalla)
-    #validacion_pregunta(claves_opciones, pantalla)
-    #mostar_mensaje_resultado(pantalla)
-    #comodin(pantalla, claves_opciones, margen_lateral, y_opcion_inicial, alto_opcion, espacio_entre_opciones)
-    #game_over(pantalla)
     
+    reloj(pantalla)
 
     if tiempo_restante > 0:
-        tiempo_restante -= 1 / 60  # Reducir el tiempo restante por fotograma (asume 60 FPS)
+        tiempo_restante -= 1 / 60  
     else:
+        pregunta_actual = (pregunta_actual + 1) % len(preguntas)
         vidas -= 1
+        puntos["puntaje"] += configuraciones["puntos_error"]
         tiempo_restante = tiempo_restante_aux
-        siguiente_pregunta()
     
     if vidas == 0:
         retorno = "fin_juego"
@@ -151,15 +142,14 @@ def mostrar_jugar(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
                     pygame.mixer.music.stop()
         vidas = vidas_aux
     
-    #le damos formato al temporizador 👻
-    minutos = int(tiempo_restante // 60)
-    segundos = int(tiempo_restante % 60)
-    tiempo_formateado = f"{minutos:02}:{segundos:02}"
+    if vidas == 0:
+        retorno = "fin_juego"
+        if pygame.mixer.music.get_busy():
+                    pygame.mixer.music.stop()
+        vidas = vidas_aux
+    #mostramos el puntaje en pantalla 👻
+    mostrar_texto(pantalla,f"puntaje: {puntos["puntaje"]}",(260,15),fuente,COLOR_BLANCO)
 
-    #mostramos las vidas y el reloj 👻
-    mostrar_texto(pantalla,tiempo_formateado,(ANCHO-160,20),fuente,COLOR_BLANCO)
-    mostrar_texto(pantalla,f"vidas: {vidas}",(60,20),fuente,COLOR_BLANCO)
-    #se agregar las vidas 👻
     pygame.display.flip()
     return retorno
 
@@ -185,32 +175,44 @@ def preguntas_respuestas(pantalla):
     pantalla.blit(respuesta_cuatro, (55, 420))
 
 def validacion_pregunta(opciones: list, x, y, pantalla):
-    global PUNTOS, VIDAS, mostrar_respuesta
+    global puntos, vidas, mostrar_respuesta, tiempo_restante, configuraciones, aciertos
 
     for i, clave_opcion in enumerate(opciones):
-        boton_y = y_boton + i * (alto_boton + espacio_entre_opciones)
-        if (x_boton <= x <= x_boton + ancho_boton and boton_y <= y <= boton_y + alto_boton):
-            #for clave_opcion in opciones:
-            print(clave_opcion)
+        if (x_opcion <= x <= x_opcion + ancho_opcion and y_opcion_inicial + i * (alto_opcion + espacio_entre_opciones) <= y <= y_opcion_inicial + i * (alto_opcion + espacio_entre_opciones) + alto_opcion):
             respuesta_seleccionada = preguntas[pregunta_actual][clave_opcion]
             respuesta_correcta = preguntas[pregunta_actual]["respuesta_correcta"]
-                # # Cambiar color según respuesta
+            # Cambiar color según respuesta
             if respuesta_seleccionada == respuesta_correcta:
                 opcion_colores[i] = COLOR_VERDE
-                mensaje_resultado = "¡Correcto!" #*VER EN DONDE UTLIIZAR ESTE MENSAJE
+                mensaje_resultado = "¡Correcto!"
                 if estado_comodin_doble_puntuacion["bandera_doble_puntuacion"] == False:
-                    PUNTOS += puntos_configuraciones
+                    #PUNTOS += puntos_configuraciones
+                    puntos["puntaje"] += configuraciones["puntos_acierto"]
                 else:
-                    #             # puntos_comodin = 20
-                    PUNTOS += puntos_doble_puntuacion(configuraciones)
+                    # puntos_comodin = 20
+                    #PUNTOS += puntos_doble_puntuacion(configuraciones)
+                    puntos["puntaje"] += configuraciones["puntos_acierto"] * 2
                     estado_comodin_doble_puntuacion["bandera_doble_puntuacion"] = False
-                print(PUNTOS)
-            if not respuesta_seleccionada == respuesta_correcta:
-                opcion_colores[i] = COLOR_ROJO 
+
+                #logica de cada 5 respuestas correctas se gana una vida 👻
+                
+                if aciertos == 4 and vidas < vidas_aux:
+                     vidas += 1
+                     aciertos = 0
+                else:
+                     aciertos += 1
+                     print(aciertos)
+                     
+                tiempo_restante = tiempo_restante_aux
+                    
+            else:
+                opcion_colores[i] = COLOR_ROJO
                 mensaje_resultado = "Incorrecto"
-                PUNTOS = max(0, PUNTOS - configuraciones["puntos_error"])
-                VIDAS -= 1
-            
+                #PUNTOS = max(0, PUNTOS - configuraciones["puntos_error"])
+                puntos["puntaje"] += configuraciones["puntos_error"]
+                vidas -= 1
+                
+                tiempo_restante = tiempo_restante_aux
             mostrar_respuesta = True
             temporizador = pygame.time.get_ticks()
         mostar_mensaje_resultado(pantalla)
@@ -253,22 +255,33 @@ def mostar_mensaje_resultado(pantalla):
         mostrar_texto(pantalla, mensaje_resultado, (x_mensaje, y_mensaje), fuente_menu, COLOR_NEGRO)
         #mostrar_texto(pantalla, mensaje_resultado, (50, 500), fuente_menu, COLOR_NEGRO)
 
-def reloj(pantalla): #! FALTA ACOPLAR
-    #* Actualizar el tiempo restante
-    if tiempo_restante > 0:
-        tiempo_restante -= 1 / 60  # Reducir el tiempo restante por fotograma (asume 60 FPS)
-    else:
-        tiempo_restante = tiempo_restante_aux
-        vidas -= 1
-        
-        print(vidas)
+def reloj(pantalla): 
 
-    #* Mostrar el temporizador global
+    global vidas, retorno, tiempo_restante, puntos, pregunta_actual, preguntas
+
+    # if tiempo_restante > 0:
+    #     tiempo_restante -= 1 / 60  
+    # else:
+    #     pregunta_actual = (pregunta_actual + 1) % len(preguntas)
+    #     vidas -= 1
+    #     puntos["puntaje"] += configuraciones["puntos_error"]
+    #     tiempo_restante = tiempo_restante_aux
+    
+    # if vidas == 0:
+    #     retorno = "fin_juego"
+    #     if pygame.mixer.music.get_busy():
+    #                 pygame.mixer.music.stop()
+    #     vidas = vidas_aux
+    
+    #le damos formato al temporizador 👻
     minutos = int(tiempo_restante // 60)
     segundos = int(tiempo_restante % 60)
     tiempo_formateado = f"{minutos:02}:{segundos:02}"
-    texto_temporizador = fuente_menu.render(tiempo_formateado, True, COLOR_BLANCO)
-    pantalla.blit(texto_temporizador, (ANCHO - 150, 10))  # Posición del temporizador en pantalla
+
+    #mostramos las vidas y el reloj 👻
+    mostrar_texto(pantalla,tiempo_formateado,(ANCHO-160,20),fuente,COLOR_BLANCO)
+    mostrar_texto(pantalla,f"vidas: {vidas}",(60,20),fuente,COLOR_BLANCO)
+
 
 def siguiente_pregunta():
     global mostrar_respuesta, pregunta_actual

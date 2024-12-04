@@ -1,7 +1,7 @@
 import pygame
 from .funciones import mostrar_texto,guardar_puntaje
 from .constantes import *
-
+from .puntos import puntos
 
 pygame.init()
 
@@ -34,7 +34,7 @@ def mostrar_fin_juego(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Eve
             tecla = pygame.key.name(evento.key) 
             
             if tecla == "return" and len(nombre) > 0:
-                guardar_puntaje("configuracion\puntuaciones.csv",nombre,PUNTOS)
+                guardar_puntaje("configuracion\puntuaciones.csv",nombre,puntos["puntaje"])
                 retorno = "menu"
 
             elif tecla == "space":
@@ -60,7 +60,7 @@ def mostrar_fin_juego(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Eve
     mostrar_texto(cuadro["superficie"],nombre,(5,5),fuente,COLOR_BLANCO)
     mostrar_texto(pantalla,"ingrese su nombre",(151,180),fuente_auxiliar,COLOR_BLANCO)
     cuadro["rectangulo"]=pantalla.blit(cuadro["superficie"],(151,200))
-    mostrar_texto(pantalla,f"Puntuación: ",(151,300),fuente_puntuacion,COLOR_BLANCO)
+    mostrar_texto(pantalla,f"Puntuación: {puntos["puntaje"]}",(151,300),fuente_puntuacion,COLOR_BLANCO)
     mostrar_texto(pantalla,"GAMEOVER",(107,20),fuente_gameover,COLOR_BLANCO)
     mostrar_texto(pantalla,"presiona ENTER para guardar",(161, 410),fuente_auxiliar,COLOR_BLANCO)
     return retorno

@@ -57,7 +57,9 @@ def mostrar_ranking(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event
 
     #ultimos 10 puntajes 👻
     #convierto el los ultimos elementos de mi diccionario en una lista de tuplas
-    ultimos_10 = list(puntajes.items())[-10:]
+    #ultimos_10 = list(puntajes.items())[-10:]
+    # Ordeno el diccionario por los valores en orden descendente y convierto en una lista de tuplas
+    ultimos_10 = sorted(puntajes.items(), key=lambda x: x[1], reverse=True)[:10]
 
     #muestro los primeros 5 👻
     for clave, valor in ultimos_10[:5]:

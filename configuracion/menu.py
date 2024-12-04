@@ -36,6 +36,7 @@ def mostrar_menu(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event]) 
                 cambiar_boton(boton_jugar,"imagenes/boton_jugar_on.png",TAMAÑO_BOTON,True)
                 estado_boton["bandera_boton"] = True
                 puntos["puntaje"] = 0
+                
             else:
                 cambiar_boton(boton_jugar,"imagenes/boton_jugar_on.png",TAMAÑO_BOTON,False)
             
