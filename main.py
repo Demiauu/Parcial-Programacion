@@ -13,7 +13,8 @@ from configuracion import (
     opciones,
     modificaciones,
     ranking,
-    funciones
+    funciones,
+    add
 )
 
 pygame.init()
@@ -77,6 +78,8 @@ while corriendo:
         audio.reproducir_musica(ventana_actual,datos_juego)
     elif ventana_actual == "salir":
         corriendo = False
+    elif ventana_actual == "agregar_pregunta":
+        ventana_actual = add.agregar_pregunta(pantalla,cola_eventos)
 
     pygame.display.flip()
 pygame.quit()

@@ -128,6 +128,8 @@ def mostrar_jugar(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
     
     reloj(pantalla)
 
+    #logica de las vidas con el tiempo 👻.
+
     if tiempo_restante > 0:
         tiempo_restante -= 1 / 60  
     else:
