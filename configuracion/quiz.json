@@ -158,5 +158,125 @@
         "respuesta_3": "Un campeon muy poderoso",
         "respuesta_4": "Un mapa alternativo del juego",
         "respuesta_correcta": "Las estrategias y composiciones de equipo mas efectivas en un momento"
+    },
+    {
+        "pregunta": "Que campeon es conocido como 'El maestro de las sombras'?",
+        "respuesta_1": "Zed",
+        "respuesta_2": "Jhin",
+        "respuesta_3": "Shen",
+        "respuesta_4": "Talon",
+        "respuesta_correcta": "Zed"
+    },
+    {
+        "pregunta": "Que region de Runaterra esta conectada con el Vacío?",
+        "respuesta_1": "Shurima",
+        "respuesta_2": "Jonia",
+        "respuesta_3": "El Vacío",
+        "respuesta_4": "Piltover",
+        "respuesta_correcta": "El Vacío"
+    },
+    {
+        "pregunta": "Que campeon utiliza el grito de guerra 'Demacia!' como frase icónica?",
+        "respuesta_1": "Garen",
+        "respuesta_2": "Lux",
+        "respuesta_3": "Jarvan IV",
+        "respuesta_4": "Quinn",
+        "respuesta_correcta": "Garen"
+    },
+    {
+        "pregunta": "Cual es el campeon conocido por lanzar barriles explosivos?",
+        "respuesta_1": "Gragas",
+        "respuesta_2": "Gangplank",
+        "respuesta_3": "Ziggs",
+        "respuesta_4": "Heimerdinger",
+        "respuesta_correcta": "Gragas"
+    },
+    {
+        "pregunta": "Cual es la funcion principal de un soporte en League of Legends?",
+        "respuesta_1": "Proteger y ayudar a los compañeros de equipo",
+        "respuesta_2": "Hacer el mayor daño posible",
+        "respuesta_3": "Asegurarse de destruir torres rapidamente",
+        "respuesta_4": "Ser el lider del equipo",
+        "respuesta_correcta": "Proteger y ayudar a los compañeros de equipo"
+    },
+    {
+        "pregunta": "Que campeon puede cambiar de forma entre tigre, tortuga, oso y fenix?",
+        "respuesta_1": "Udyr",
+        "respuesta_2": "Nidalee",
+        "respuesta_3": "Elise",
+        "respuesta_4": "Shyvana",
+        "respuesta_correcta": "Udyr"
+    },
+    {
+        "pregunta": "Que significa 'CC' en League of Legends?",
+        "respuesta_1": "Control de masas",
+        "respuesta_2": "Caza de campeones",
+        "respuesta_3": "Captura de objetivos",
+        "respuesta_4": "Cargador de combate",
+        "respuesta_correcta": "Control de masas"
+    },
+    {
+        "pregunta": "Que region de Runaterra es conocida por su avanzada tecnologia hextech?",
+        "respuesta_1": "Piltover",
+        "respuesta_2": "Zaun",
+        "respuesta_3": "Ixtal",
+        "respuesta_4": "Freljord",
+        "respuesta_correcta": "Piltover"
+    },
+    {
+        "pregunta": "Que campeon es el 'Padre de los Minions'?",
+        "respuesta_1": "Heimerdinger",
+        "respuesta_2": "Ziggs",
+        "respuesta_3": "Viktor",
+        "respuesta_4": "Rumble",
+        "respuesta_correcta": "Heimerdinger"
+    },
+    {
+        "pregunta": "Que campeon es conocido como 'El Card Master'?",
+        "respuesta_1": "Twisted Fate",
+        "respuesta_2": "Ezreal",
+        "respuesta_3": "Jhin",
+        "respuesta_4": "Ryze",
+        "respuesta_correcta": "Twisted Fate"
+    },
+    {
+        "pregunta": "Que campeon tiene una pasiva que revive despues de morir?",
+        "respuesta_1": "Aatrox",
+        "respuesta_2": "Tryndamere",
+        "respuesta_3": "Zac",
+        "respuesta_4": "Sion",
+        "respuesta_correcta": "Sion"
+    },
+    {
+        "pregunta": "Que campeon es conocido como 'La voz de la luz celestial'?",
+        "respuesta_1": "Soraka",
+        "respuesta_2": "Kayle",
+        "respuesta_3": "Leona",
+        "respuesta_4": "Lux",
+        "respuesta_correcta": "Soraka"
+    },
+    {
+        "pregunta": "Que campeon es famoso por su habilidad 'Lanza Boomerang'?",
+        "respuesta_1": "Sivir",
+        "respuesta_2": "Draven",
+        "respuesta_3": "Ezreal",
+        "respuesta_4": "Miss Fortune",
+        "respuesta_correcta": "Sivir"
+    },
+    {
+        "pregunta": "Que campeon invoca tiburones como parte de sus habilidades?",
+        "respuesta_1": "Fizz",
+        "respuesta_2": "Nami",
+        "respuesta_3": "Pyke",
+        "respuesta_4": "Tahm Kench",
+        "respuesta_correcta": "Fizz"
+    },
+    {
+        "pregunta": "Que campeon tiene un arma llamada 'Ballesta de Luz Lunar'?",
+        "respuesta_1": "Aphelios",
+        "respuesta_2": "Vayne",
+        "respuesta_3": "Diana",
+        "respuesta_4": "Kalista",
+        "respuesta_correcta": "Aphelios"
     }
 ]
