@@ -6,7 +6,8 @@ import csv
 import os
 import json
 
-def agregar_pregunta(json_path, nueva_pregunta, respuestas):
+#def agregar_pregunta(json_path, nueva_pregunta, respuestas):
+def agregar_pregunta(json_path, nueva_entrada):
     """
     Esta función agrega una nueva pregunta con 4 respuestas a un archivo JSON.
     Recibe como parámetros la ruta del archivo JSON, el texto de la nueva pregunta,
@@ -14,14 +15,14 @@ def agregar_pregunta(json_path, nueva_pregunta, respuestas):
     """
     
     # Crear la nueva entrada
-    nueva_entrada = {
-        "pregunta": nueva_pregunta,
-        "respuesta_1": respuestas[0],
-        "respuesta_2": respuestas[1],
-        "respuesta_3": respuestas[2],
-        "respuesta_4": respuestas[3],
-        "respuesta_correcta": respuestas[0]
-    }
+    # nueva_entrada = {
+    #     "pregunta": nueva_pregunta,
+    #     "respuesta_1": respuestas[0],
+    #     "respuesta_2": respuestas[1],
+    #     "respuesta_3": respuestas[2],
+    #     "respuesta_4": respuestas[3],
+    #     "respuesta_correcta": respuestas[0]
+    # }
 
     try:
         # Leer el archivo JSON 👻

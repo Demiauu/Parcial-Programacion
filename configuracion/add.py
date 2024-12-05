@@ -15,15 +15,24 @@ fuente_auxiliar = pygame.font.SysFont("Pixel Operator 8",15)
 
 cuadro = {}
 imagen_original = pygame.image.load("imagenes/cuadro.png")
-cuadro["superficie"] = pygame.transform.scale(imagen_original, (700,40))
+cuadro["superficie"] = pygame.transform.scale(imagen_original, (600,40))
 #cuadro["superficie"] = pygame.Surface((300,150))
 cuadro["rectangulo"] = cuadro["superficie"].get_rect()
-nuevo = ["1","2","3","4","5"]
+nuevo = ["","","","","","",""]
 i = 0
-textos = ["","","","",""]
+textos = ["","","","","","",""]
+
+nueva_entrada = {
+        "pregunta": "",
+        "respuesta_1": "",
+        "respuesta_2": "",
+        "respuesta_3": "",
+        "respuesta_4": "",
+        "respuesta_correcta": ""
+    }
 
 def agregar_pregunta(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event]) -> str:
-    global textos, nuevo, i
+    global textos, nuevo, i, nueva_entrada
 
     pregunta = nuevo[0]
     respuestas = nuevo[1:5]
@@ -40,10 +49,29 @@ def agregar_pregunta(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Even
             tecla = pygame.key.name(evento.key) 
             
             if tecla == "return" and len(nuevo[i]) > 0:
-                i+=1
-                if i == len(nuevo)-1:
+                # i+=1
+                # if i == len(nuevo)-1:
+                #     agregar_pregunta("configuracion/quiz.json",pregunta,respuestas)
+                #     retorno = "menu"
+                if i == 0:
+                    nueva_entrada["pregunta"] = nuevo[i]
+                    
+                elif i == 1:
+                    nueva_entrada["respuesta_1"] = nuevo[i]
+                    nueva_entrada["respuesta_correcta"] = nueva_entrada["respuesta_1"]
+                    
+                elif i == 2:
+                    nueva_entrada["respuesta_2"] = nuevo[i]
+                    
+                elif i == 3:
+                    nueva_entrada["respuesta_3"] = nuevo[i]
+                    
+                elif i == 4:
+                    nueva_entrada["respuesta_4"] = nuevo[i]
+                    
                     agregar_pregunta("configuracion/quiz.json",pregunta,respuestas)
-                    retorno = "menu"
+                i+=1
+                
 
             elif tecla == "space":
                 nuevo[i] += " "
@@ -64,7 +92,7 @@ def agregar_pregunta(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Even
     pantalla.blit(fondo, (0,0))
     mostrar_texto(cuadro["superficie"],nuevo[i],(5,5),fuente,COLOR_BLANCO)
     mostrar_texto(pantalla,textos[i],(151,180),fuente_auxiliar,COLOR_BLANCO)
-    cuadro["rectangulo"]=pantalla.blit(cuadro["superficie"],(151,200))
+    cuadro["rectangulo"]=pantalla.blit(cuadro["superficie"],(50,200))
     # mostrar_texto(pantalla,"GAMEOVER",(107,20),fuente_gameover,COLOR_BLANCO)
     mostrar_texto(pantalla,"presiona ENTER para continuar",(161, 410),fuente_auxiliar,COLOR_BLANCO)
     return retorno
