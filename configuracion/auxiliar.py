@@ -128,6 +128,8 @@ def mostrar_jugar(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
     
     reloj(pantalla)
 
+    #logica de las vidas con el tiempo 👻.
+
     if tiempo_restante > 0:
         tiempo_restante -= 1 / 60  
     else:
@@ -222,6 +224,7 @@ def validacion_pregunta(opciones: list, x, y, pantalla):
 
 def comodin(pantalla, opciones, margen_lateral, y_opcion_inicial, alto_opcion, espacio_entre_opciones): #! FALTA ACOPLAR
     #Verifica el uso del comodin de saltar pregunta.🌹
+    global pregunta_actual
     if estado_comodin_saltar["bandera_saltar"] == True:
         pregunta_actual = (pregunta_actual + 1) % len(preguntas)  # Salta a la siguiente pregunta
         estado_comodin_saltar["bandera_saltar"] = False

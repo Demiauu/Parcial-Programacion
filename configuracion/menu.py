@@ -18,6 +18,7 @@ boton_ranking = crear_boton(TAMAÑO_BOTON,"imagenes/boton_ranking.png")
 boton_opciones = crear_boton(TAMAÑO_BOTON,"imagenes/boton_opciones.png")
 boton_salir = crear_boton((70,30),"imagenes/boton_salir.png")
 boton_mod = crear_boton((48,30),"imagenes/boton_mod.png")
+boton_add = crear_boton((48,48),"imagenes/boton_add.jpg")
 
 def mostrar_menu(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event]) -> str:
     """esta funcion dibuja el menu al llamarla, recibe como primer parametro las dimensiones de la pantalla, 
@@ -92,6 +93,9 @@ def mostrar_menu(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event]) 
                 if pygame.mixer.music.get_busy():
                     pygame.mixer.music.stop()
                 CLICK_SOUND.play()
+            elif boton_add["rectangulo"].collidepoint(evento.pos):
+                retorno = "agregar_pregunta"
+                CLICK_SOUND.play()
         #Agrege el boton opciones para que funcione 🌹
         if evento.type == pygame.MOUSEBUTTONDOWN:
             if boton_opciones["rectangulo"].collidepoint(evento.pos):
@@ -113,5 +117,6 @@ def mostrar_menu(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event]) 
     boton_opciones["rectangulo"] = pantalla.blit(boton_opciones["superficie"],(486,350))
     boton_salir["rectangulo"] = pantalla.blit(boton_salir["superficie"],(318, 400))
     boton_mod["rectangulo"] = pantalla.blit(boton_mod["superficie"],(634,20))
+    boton_add["rectangulo"] = pantalla.blit(boton_add["superficie"],(20,20))
 
     return retorno

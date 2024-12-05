@@ -4,6 +4,83 @@ from .constantes import *
 import pygame
 import csv
 import os
+import json
+
+def agregar_pregunta(json_path, nueva_pregunta, respuestas):
+    """
+    Esta función agrega una nueva pregunta con 4 respuestas a un archivo JSON.
+    Recibe como parámetros la ruta del archivo JSON, el texto de la nueva pregunta,
+    la respuesta correcta y tres respuestas incorrectas. 👻
+    """
+    
+    # Crear la nueva entrada
+    nueva_entrada = {
+        "pregunta": nueva_pregunta,
+        "respuesta_1": respuestas[0],
+        "respuesta_2": respuestas[1],
+        "respuesta_3": respuestas[2],
+        "respuesta_4": respuestas[3],
+        "respuesta_correcta": respuestas[0]
+    }
+
+    try:
+        # Leer el archivo JSON 👻
+        with open(json_path, 'r') as file:
+
+        #lee y convierte el archivo en una estructura de datos nativa de python 👻
+
+            datos = json.load(file)
+
+        # Agregar la nueva entrada
+        datos.append(nueva_entrada)
+
+        # Escribir los datos modificados en el archivo 👻
+        with open(json_path, 'w') as file:
+
+            #con vierte la estructura de datos nativa de python en texto json 👻
+            
+            json.dump(datos, file, indent=4)
+
+        print("Pregunta agregada exitosamente.")
+    except Exception as e:
+        print(f"Ocurrió un error: {e}")
+
+def modificar_json(nombre_archivo, clave, nuevo_valor):
+    """
+    Esta función recibe la ruta de un archivo JSON, una clave y un nuevo valor,
+    y actualiza el archivo con el dato modificado o agrega la clave si no existe, sin romper nada 👻.
+    """
+    try:
+        # Leer el archivo JSON 👻
+        with open(nombre_archivo, mode="r") as archivo:
+
+            #lee y convierte el archivo en una estructura de datos nativa de python 👻
+
+            datos = json.load(archivo)
+        
+        # Verificar si la clave existe en los datos 👻
+        if clave in datos:
+            # Actualizar el valor de la clave existente 👻
+            datos[clave] = nuevo_valor
+        else:
+            # Si la clave no existe, agregarla 👻
+            datos[clave] = nuevo_valor
+
+        # Escribir los datos modificados en el archivo 👻
+        with open(nombre_archivo, mode="w") as archivo:
+
+            #con vierte la estructura de datos nativa de python en texto json 👻
+
+            json.dump(datos, archivo, indent=4)
+
+        print(f"Archivo JSON modificado exitosamente: {clave} = {nuevo_valor} 👻")
+
+    except FileNotFoundError:
+        print(f"El archivo {nombre_archivo} no existe. 👻")
+    except json.JSONDecodeError:
+        print("El archivo no es un JSON válido. 👻")
+    except Exception as e:
+        print(f"Ocurrió un error inesperado: {e} 👻")
 
 def leer_csv(ruta_csv):
     """esta funcion recibe como parametro la ruta del csv y lo convierte en un diccionario 👻"""
@@ -99,20 +176,29 @@ def guardar_puntaje(nombre_archivo, nombre_jugador, puntuacion):
         print(f"Ocurrió un error al guardar la puntuación: {e}")
 
 def leer_csv_sin_cabecera(ruta_csv):
-    """Esta función recibe como parámetro la ruta del CSV sin cabecera y lo convierte en un diccionario 👻."""
-    opciones = {}
-    
+    """
+    Esta función recibe como parámetro la ruta de un archivo CSV **sin cabecera** 
+    y lo convierte en un diccionario. Cada fila debe tener al menos dos columnas: 
+    la primera será la clave y la segunda, el valor. 👻
+    """
+    opciones = {}  # Diccionario donde se almacenarán las claves y valores del CSV.
+
+    # Verificamos si el archivo existe antes de intentar abrirlo 👻
     if os.path.exists(ruta_csv):
-        with open(ruta_csv, mode='r') as archivo:
+        with open(ruta_csv, mode='r') as archivo:  
             lector_csv = csv.reader(archivo)
+            
+            # Iteramos sobre cada fila del archivo CSV 👻
             for fila in lector_csv:
-                if len(fila) >= 2:  
-                    opciones[fila[0]] = int(fila[1])
+                if len(fila) >= 2:  # Verificamos que la fila tenga al menos 2 columnas.
+                    opciones[fila[0]] = int(fila[1])  # La primera columna es la clave, la segunda el valor.
                 else:
+                    # Advertimos si encontramos filas incompletas que no tienen 2 columnas. 👻
                     print(f"Advertencia: Fila incompleta ignorada: {fila}")
-        #print(opciones)
-        return opciones
+        
+        return opciones  # Devolvemos el diccionario con las opciones procesadas. 👻
     else:
+        # Si el archivo no existe, mostramos un mensaje de error y devolvemos un diccionario vacío. 👻
         print("ERROR, EL ARCHIVO NO EXISTE")
         return {}
 
