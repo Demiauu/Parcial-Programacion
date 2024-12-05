@@ -39,9 +39,9 @@ clock = pygame.time.Clock()
 
 #//////////////////////////////////////////////////////////////////////////
 
-#leo el csv 👻
+#leo el csv 馃懟
 configuraciones = leer_csv("configuracion\config.csv")
-#agrego el tiempo restante 👻
+#agrego el tiempo restante 馃懟
 tiempo_restante = configuraciones["temporizador"]
 tiempo_restante_aux = tiempo_restante
 vidas = configuraciones["vidas"]
@@ -53,7 +53,7 @@ primera_iteracion = False
 def dividir_texto(texto, fuente, ancho_maximo):
 
     """
-    Divide el texto en múltiples líneas que no excedan el ancho máximo.
+    Divide el texto en m煤ltiples l铆neas que no excedan el ancho m谩ximo.
     """
     palabras = str(texto).split()
     lineas = []
@@ -86,10 +86,10 @@ def mostrar_jugar(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
     claves_opciones = ["respuesta_1", "respuesta_2", "respuesta_3", "respuesta_4"]
 
     global tiempo_restante,tiempo_restante_aux,primera_iteracion,estado_guardar_config, configuraciones
-    global preguntas, pregunta_actual, pregunta_actual_aux
+    global preguntas, pregunta_actual
     global vidas, vidas_aux, aciertos
 
-    #si detecta una modificación vuelve a leer el archivo csv 👻
+    #si detecta una modificaci贸n vuelve a leer el archivo csv 馃懟
     if estado_guardar_config["bandera_configuracion"]:
         configuraciones = leer_csv("configuracion\config.csv")
 
@@ -116,8 +116,7 @@ def mostrar_jugar(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
         
         elif event.type == pygame.MOUSEBUTTONDOWN and not mostrar_respuesta:
             x, y = pygame.mouse.get_pos()
-
-            validacion_pregunta(claves_opciones, x, y, pantalla)
+            validacion_pregunta(claves_opciones, x, y)
         if event.type == pygame.MOUSEMOTION:
             pass
             
@@ -125,15 +124,18 @@ def mostrar_jugar(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
     pantalla.blit(fondo, (0,0))
 
     preguntas_respuestas(pantalla)
-    
+    mostar_mensaje_resultado(pantalla)  # Mostrar resultado de la respuesta
+    siguiente_pregunta()
     reloj(pantalla)
+
+    #logica de las vidas con el tiempo 馃懟.
 
     if tiempo_restante > 0:
         tiempo_restante -= 1 / 60  
     else:
         pregunta_actual = (pregunta_actual + 1) % len(preguntas)
         vidas -= 1
-        puntos["puntaje"] += puntos_doble_puntuacion(configuraciones)
+        puntos["puntaje"] += configuraciones["puntos_error"]
         tiempo_restante = tiempo_restante_aux
     
     if vidas == 0:
@@ -147,7 +149,7 @@ def mostrar_jugar(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
         if pygame.mixer.music.get_busy():
                     pygame.mixer.music.stop()
         vidas = vidas_aux
-    #mostramos el puntaje en pantalla 👻
+    #mostramos el puntaje en pantalla 馃懟
     mostrar_texto(pantalla,f"puntaje: {puntos["puntaje"]}",(260,15),fuente,COLOR_BLANCO)
 
     pygame.display.flip()
@@ -161,17 +163,16 @@ def preguntas_respuestas(pantalla):
         estado_comodin_bomba["bandera_bomba"] = False
 
     #dibujos
-    boton_pregunta_1 = pygame.draw.rect(pantalla, COLOR_BOTON_AZUL, (50, 100, 610, 90))
-    boton_pregunta_2 = pygame.draw.rect(pantalla, COLOR_BOTON_AZUL, (50, 200, 610, 90))
-    boton_pregunta_3 = pygame.draw.rect(pantalla, COLOR_BOTON_AZUL, (50, 300, 610, 90))
-    boton_pregunta_4 = pygame.draw.rect(pantalla, COLOR_BOTON_AZUL, (50, 400, 610, 90))
+    boton_pregunta_1 = pygame.draw.rect(pantalla, opcion_colores[0], (50, 100, 610, 90))
+    boton_pregunta_2 = pygame.draw.rect(pantalla, opcion_colores[1], (50, 200, 610, 90))
+    boton_pregunta_3 = pygame.draw.rect(pantalla, opcion_colores[2], (50, 300, 610, 90))
+    boton_pregunta_4 = pygame.draw.rect(pantalla, opcion_colores[3], (50, 400, 610, 90))
     
     #renderizacion
     respuesta_uno = fuente_respuestas.render(preguntas[pregunta_actual]["respuesta_1"], 0, COLOR_BLANCO)
     respuesta_dos = fuente_respuestas.render(preguntas[pregunta_actual]["respuesta_2"], 0, COLOR_BLANCO)
     respuesta_tres = fuente_respuestas.render(preguntas[pregunta_actual]["respuesta_3"], 0, COLOR_BLANCO)
     respuesta_cuatro = fuente_respuestas.render(preguntas[pregunta_actual]["respuesta_4"], 0, COLOR_BLANCO)
-    
 
     pantalla.blit(respuesta_uno, (55, 120))
     pantalla.blit(respuesta_dos, (55, 220))
@@ -181,25 +182,32 @@ def preguntas_respuestas(pantalla):
 def validacion_pregunta(opciones: list, x, y, pantalla):
     global puntos, vidas, mostrar_respuesta, tiempo_restante, configuraciones, aciertos
 
-    for i, clave_opcion in enumerate(opciones):
-        if (x_opcion <= x <= x_opcion + ancho_opcion and y_opcion_inicial + i * (alto_opcion + espacio_entre_opciones) <= y <= y_opcion_inicial + i * (alto_opcion + espacio_entre_opciones) + alto_opcion):
-            respuesta_seleccionada = preguntas[pregunta_actual][clave_opcion]
+    botones = [
+        pygame.Rect(50, 100, 610, 90),  # Bot贸n 1
+        pygame.Rect(50, 200, 610, 90),  # Bot贸n 2
+        pygame.Rect(50, 300, 610, 90),  # Bot贸n 3
+        pygame.Rect(50, 400, 610, 90)   # Bot贸n 4
+    ]
+
+    for i, boton in enumerate(botones):
+        if boton.collidepoint(x, y):
+            respuesta_seleccionada = preguntas[pregunta_actual][opciones[i]]
             respuesta_correcta = preguntas[pregunta_actual]["respuesta_correcta"]
-            # Cambiar color según respuesta
+            # Cambiar color seg煤n respuesta
             if respuesta_seleccionada == respuesta_correcta:
                 opcion_colores[i] = COLOR_VERDE
-                mensaje_resultado = "¡Correcto!"
+                mensaje_resultado = "隆Correcto!"
+                PUNTOS += configuraciones["puntos_acierto"]  # Sumar puntos
                 # if estado_comodin_doble_puntuacion["bandera_doble_puntuacion"] == False:
-                    #PUNTOS += puntos_configuraciones
-                puntos["puntaje"] += puntos_doble_puntuacion(configuraciones)
-                print(puntos["puntaje"])
+                #     #PUNTOS += puntos_configuraciones
+                #     puntos["puntaje"] += configuraciones["puntos_acierto"]
                 # else:
                 #     # puntos_comodin = 20
                 #     #PUNTOS += puntos_doble_puntuacion(configuraciones)
                 #     puntos["puntaje"] += configuraciones["puntos_acierto"] * 2
                 #     estado_comodin_doble_puntuacion["bandera_doble_puntuacion"] = False
 
-                #logica de cada 5 respuestas correctas se gana una vida 👻
+                #logica de cada 5 respuestas correctas se gana una vida 馃懟
                 
                 if aciertos == 4 and vidas < vidas_aux:
                     vidas += 1
@@ -207,21 +215,22 @@ def validacion_pregunta(opciones: list, x, y, pantalla):
                 else:
                     aciertos += 1
                     print(aciertos)
-                    
+
                 tiempo_restante = tiempo_restante_aux
-                    
+
             else:
                 opcion_colores[i] = COLOR_ROJO
                 mensaje_resultado = "Incorrecto"
-                #PUNTOS = max(0, PUNTOS - configuraciones["puntos_error"])
-                puntos["puntaje"] += configuraciones["puntos_error"]
-                vidas -= 1
+                PUNTOS = max(0, PUNTOS - configuraciones["puntos_error"])  # Restar puntos, no menos de 0
+                VIDAS -= 1  # Restar una vida
                 
                 tiempo_restante = tiempo_restante_aux
+
             mostrar_respuesta = True
             temporizador = pygame.time.get_ticks()
-        mostar_mensaje_resultado(pantalla)
-        siguiente_pregunta()
+            return
+        # mostar_mensaje_resultado(pantalla)
+        # siguiente_pregunta()
     
     #mostrar_respuesta = True
 
@@ -250,24 +259,20 @@ def reloj(pantalla):
     #                 pygame.mixer.music.stop()
     #     vidas = vidas_aux
     
-    #le damos formato al temporizador 👻
+    #le damos formato al temporizador 馃懟
     minutos = int(tiempo_restante // 60)
     segundos = int(tiempo_restante % 60)
     tiempo_formateado = f"{minutos:02}:{segundos:02}"
 
-    #mostramos las vidas y el reloj 👻
+    #mostramos las vidas y el reloj 馃懟
     mostrar_texto(pantalla,tiempo_formateado,(ANCHO-160,20),fuente,COLOR_BLANCO)
     mostrar_texto(pantalla,f"vidas: {vidas}",(60,20),fuente,COLOR_BLANCO)
 
 
 def siguiente_pregunta():
-    global mostrar_respuesta, pregunta_actual
-    #todo# Cambiar a la siguiente pregunta después de 2 segundos
-    if estado_comodin_saltar["bandera_saltar"] == True:
-            pregunta_actual = (pregunta_actual + 1) % len(preguntas)# Salta a la siguiente pregunta
-            estado_comodin_saltar["bandera_saltar"] = False
-    if mostrar_respuesta and pygame.time.get_ticks() - temporizador > 1000:
-        pregunta_actual = (pregunta_actual + 1) % len(preguntas)
-        opcion_colores = [COLOR_AZUL] * 4  # Reiniciar colores
-        mensaje_resultado = ""
-        mostrar_respuesta = False
+    global mostrar_respuesta, pregunta_actual, opcion_colores, mensaje_resultado
+    if mostrar_respuesta and pygame.time.get_ticks() - temporizador > 1000:  # Esperar 2 segundos
+        pregunta_actual = (pregunta_actual + 1) % len(preguntas)  # Cambiar a la siguiente pregunta
+        opcion_colores = [COLOR_BOTON_AZUL] * 4  # Reiniciar colores de los botones
+        mensaje_resultado = ""  # Limpiar mensaje
+        mostrar_respuesta = False 

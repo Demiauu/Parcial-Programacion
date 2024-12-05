@@ -3,6 +3,7 @@ from configuracion import (
     audio,
     fin,
     menu,
+    niggers,
     jugar,
     auxiliar,
     pausa,

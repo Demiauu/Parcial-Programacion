@@ -31,6 +31,7 @@ puntos_configuraciones = configuraciones["puntos_acierto"]
 def puntos_doble_puntuacion(configuraciones):
     if estado_comodin_doble_puntuacion["bandera_doble_puntuacion"] == True:
         configuraciones["puntos_acierto"] = puntos_configuraciones * 2
+        estado_comodin_doble_puntuacion["bandera_doble_puntuacion"] = False
     else:
         configuraciones["puntos_acierto"] = puntos_configuraciones
     
@@ -74,6 +75,8 @@ def mostrar_comodines(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Eve
             if boton_bomba["rectangulo"].collidepoint(evento.pos):
                 if configuraciones["comodines"] > 0:
                     configuraciones["comodines"] -= 1
+                    estado_comodin_bomba["bandera_bomba"] = True
+                    SONIDO_BOMBA.play()
                 if estado_uso_comodin_bomba["bandera_uso_bomba"] == True or configuraciones["comodines"] == 0:
                     retorno = "jugar"    
                 elif estado_uso_comodin_bomba["bandera_uso_bomba"] == False:
@@ -86,6 +89,7 @@ def mostrar_comodines(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Eve
             elif boton_x2["rectangulo"].collidepoint(evento.pos):
                 if configuraciones["comodines"] > 0:
                     configuraciones["comodines"] -= 1
+                    estado_comodin_doble_puntuacion["bandera_doble_puntuacion"] = True
                 if estado_uso_comodin_doble_puntuacion["bandera_uso_doble_puntuacion"] == True or configuraciones["comodines"] == 0:
                     retorno = "jugar"                    
                 elif estado_uso_comodin_doble_puntuacion["bandera_uso_doble_puntuacion"] == False:
@@ -95,6 +99,7 @@ def mostrar_comodines(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Eve
             elif boton_pasar["rectangulo"].collidepoint(evento.pos):
                 if configuraciones["comodines"] > 0:
                     configuraciones["comodines"] -= 1
+                    estado_comodin_saltar["bandera_saltar"] = True
                 if estado_uso_comodin_saltar["bandera_uso_saltar"] == True and configuraciones["comodines"] == 0:
                     retorno = "jugar"    
                 elif estado_uso_comodin_saltar["bandera_uso_saltar"] == False:

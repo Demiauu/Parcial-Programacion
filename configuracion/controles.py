@@ -31,7 +31,7 @@ def mostrar_controles(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Eve
                 cambiar_boton(boton_volver,"imagenes/boton_atras_on.png",(70,30),True)
             else:
                 cambiar_boton(boton_volver,"imagenes/boton_atras_on.png",(70,30),False)
-            
+
     pantalla.blit(fondo, (0,0))
 
     boton_volver["rectangulo"] = pantalla.blit(boton_volver["superficie"],(10,10))
