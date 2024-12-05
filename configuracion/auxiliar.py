@@ -72,7 +72,6 @@ def linea_de_pregunta(pantalla: pygame.Surface) -> str:
 
     #todo# Mostrar la pregunta actual
     pregunta = preguntas[pregunta_actual]["pregunta"]
-    pregunta_actual_aux = preguntas[pregunta_actual]["pregunta"]
     linea_de_pregunta = dividir_texto(pregunta, fuente_menu, ANCHO)
 
     for i, linea in enumerate(linea_de_pregunta):
@@ -124,10 +123,6 @@ def mostrar_jugar(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
             
     
     pantalla.blit(fondo, (0,0))
-
-    if estado_comodin_saltar["bandera_saltar"] == True:
-        saltar_pregunta(pregunta_actual,preguntas) # Salta a la siguiente pregunta
-        estado_comodin_saltar["bandera_saltar"] = False
 
     preguntas_respuestas(pantalla)
     
@@ -229,36 +224,6 @@ def validacion_pregunta(opciones: list, x, y, pantalla):
         siguiente_pregunta()
     
     #mostrar_respuesta = True
-
-# def comodin_saltar()-> None:
-#     #Verifica el uso del comodin de saltar pregunta.🌹
-#     if estado_comodin_saltar["bandera_saltar"] == True:
-#         pregunta_actual = (pregunta_actual + 1) % len(preguntas)  # Salta a la siguiente pregunta
-#         estado_comodin_saltar["bandera_saltar"] = False
-    
-
-# def comodin_bomba()-> None:
-#     #Verifica el uso del comodin bomba.🌹
-#     for i, clave_opcion in enumerate(opciones):
-#         if estado_comodin_bomba["bandera_bomba"] == False:
-#             texto_opcion = preguntas[pregunta_actual][clave_opcion]
-#             x_opcion = margen_lateral
-#             y_opcion = y_opcion_inicial + i * (alto_opcion + espacio_entre_opciones)
-#             texto_x = x_opcion + 10  # Margen interno para el texto
-#             texto_y = y_opcion + 10  # Margen interno
-#             pygame.draw.rect(pantalla, opcion_colores[i], (50, 200 + i * 60, 700, 50))
-#             mostrar_texto(pantalla, texto_opcion, (texto_x, texto_y), fuente_menu, COLOR_BLANCO)
-#         else:
-#             desactivar_dos_respuestas(pregunta_actual, preguntas)
-#             texto_opcion = preguntas[pregunta_actual][clave_opcion]
-#             x_opcion = margen_lateral
-#             y_opcion = y_opcion_inicial + i * (alto_opcion + espacio_entre_opciones)
-#             texto_x = x_opcion + 10  # Margen interno para el texto
-#             texto_y = y_opcion + 10  # Margen interno
-#             pygame.draw.rect(pantalla, opcion_colores[i], (50, 200 + i * 60, 700, 50))
-#             mostrar_texto(pantalla, texto_opcion, (texto_x, texto_y), fuente_menu, COLOR_NEGRO)
-#             estado_comodin_bomba["bandera_bomba"] = False
-#         #mostrar_texto(pantalla, texto_opcion, (60, 210 + i * 60), fuente_menu, COLOR_NEGRO)
 
 def mostar_mensaje_resultado(pantalla):
     if mensaje_resultado:
