@@ -72,6 +72,7 @@ def linea_de_pregunta(pantalla: pygame.Surface) -> str:
 
     #todo# Mostrar la pregunta actual
     pregunta = preguntas[pregunta_actual]["pregunta"]
+    pregunta_actual_aux = preguntas[pregunta_actual]["pregunta"]
     linea_de_pregunta = dividir_texto(pregunta, fuente_menu, ANCHO)
 
     for i, linea in enumerate(linea_de_pregunta):
@@ -86,7 +87,7 @@ def mostrar_jugar(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
     claves_opciones = ["respuesta_1", "respuesta_2", "respuesta_3", "respuesta_4"]
 
     global tiempo_restante,tiempo_restante_aux,primera_iteracion,estado_guardar_config, configuraciones
-    global preguntas, pregunta_actual
+    global preguntas, pregunta_actual, pregunta_actual_aux
     global vidas, vidas_aux, aciertos
 
     #si detecta una modificación vuelve a leer el archivo csv 👻
@@ -116,13 +117,17 @@ def mostrar_jugar(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
         
         elif event.type == pygame.MOUSEBUTTONDOWN and not mostrar_respuesta:
             x, y = pygame.mouse.get_pos()
-          
+
             validacion_pregunta(claves_opciones, x, y, pantalla)
         if event.type == pygame.MOUSEMOTION:
             pass
             
     
     pantalla.blit(fondo, (0,0))
+
+    if estado_comodin_saltar["bandera_saltar"] == True:
+        saltar_pregunta(pregunta_actual,preguntas) # Salta a la siguiente pregunta
+        estado_comodin_saltar["bandera_saltar"] = False
 
     preguntas_respuestas(pantalla)
     
@@ -156,6 +161,10 @@ def mostrar_jugar(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])
 def preguntas_respuestas(pantalla):
     linea_de_pregunta(pantalla)
 
+    if estado_comodin_bomba["bandera_bomba"] == True:
+        desactivar_dos_respuestas(pregunta_actual, preguntas)
+        estado_comodin_bomba["bandera_bomba"] = False
+
     #dibujos
     boton_pregunta_1 = pygame.draw.rect(pantalla, COLOR_BOTON_AZUL, (50, 100, 610, 90))
     boton_pregunta_2 = pygame.draw.rect(pantalla, COLOR_BOTON_AZUL, (50, 200, 610, 90))
@@ -185,24 +194,25 @@ def validacion_pregunta(opciones: list, x, y, pantalla):
             if respuesta_seleccionada == respuesta_correcta:
                 opcion_colores[i] = COLOR_VERDE
                 mensaje_resultado = "¡Correcto!"
-                if estado_comodin_doble_puntuacion["bandera_doble_puntuacion"] == False:
+                # if estado_comodin_doble_puntuacion["bandera_doble_puntuacion"] == False:
                     #PUNTOS += puntos_configuraciones
-                    puntos["puntaje"] += configuraciones["puntos_acierto"]
-                else:
-                    # puntos_comodin = 20
-                    #PUNTOS += puntos_doble_puntuacion(configuraciones)
-                    puntos["puntaje"] += configuraciones["puntos_acierto"] * 2
-                    estado_comodin_doble_puntuacion["bandera_doble_puntuacion"] = False
+                puntos["puntaje"] += puntos_doble_puntuacion(configuraciones)
+                print(puntos["puntaje"])
+                # else:
+                #     # puntos_comodin = 20
+                #     #PUNTOS += puntos_doble_puntuacion(configuraciones)
+                #     puntos["puntaje"] += configuraciones["puntos_acierto"] * 2
+                #     estado_comodin_doble_puntuacion["bandera_doble_puntuacion"] = False
 
                 #logica de cada 5 respuestas correctas se gana una vida 👻
                 
                 if aciertos == 4 and vidas < vidas_aux:
-                     vidas += 1
-                     aciertos = 0
+                    vidas += 1
+                    aciertos = 0
                 else:
-                     aciertos += 1
-                     print(aciertos)
-                     
+                    aciertos += 1
+                    print(aciertos)
+                    
                 tiempo_restante = tiempo_restante_aux
                     
             else:
@@ -220,33 +230,35 @@ def validacion_pregunta(opciones: list, x, y, pantalla):
     
     #mostrar_respuesta = True
 
-def comodin(pantalla, opciones, margen_lateral, y_opcion_inicial, alto_opcion, espacio_entre_opciones): #! FALTA ACOPLAR
-    #Verifica el uso del comodin de saltar pregunta.🌹
-    if estado_comodin_saltar["bandera_saltar"] == True:
-        pregunta_actual = (pregunta_actual + 1) % len(preguntas)  # Salta a la siguiente pregunta
-        estado_comodin_saltar["bandera_saltar"] = False
+# def comodin_saltar()-> None:
+#     #Verifica el uso del comodin de saltar pregunta.🌹
+#     if estado_comodin_saltar["bandera_saltar"] == True:
+#         pregunta_actual = (pregunta_actual + 1) % len(preguntas)  # Salta a la siguiente pregunta
+#         estado_comodin_saltar["bandera_saltar"] = False
     
-    #Verifica el uso del comodin bomba.🌹
-    for i, clave_opcion in enumerate(opciones):
-        if estado_comodin_bomba["bandera_bomba"] == False:
-            texto_opcion = preguntas[pregunta_actual][clave_opcion]
-            x_opcion = margen_lateral
-            y_opcion = y_opcion_inicial + i * (alto_opcion + espacio_entre_opciones)
-            texto_x = x_opcion + 10  # Margen interno para el texto
-            texto_y = y_opcion + 10  # Margen interno
-            pygame.draw.rect(pantalla, opcion_colores[i], (50, 200 + i * 60, 700, 50))
-            mostrar_texto(pantalla, texto_opcion, (texto_x, texto_y), fuente_menu, COLOR_BLANCO)
-        else:
-            desactivar_dos_respuestas(pregunta_actual, preguntas)
-            texto_opcion = preguntas[pregunta_actual][clave_opcion]
-            x_opcion = margen_lateral
-            y_opcion = y_opcion_inicial + i * (alto_opcion + espacio_entre_opciones)
-            texto_x = x_opcion + 10  # Margen interno para el texto
-            texto_y = y_opcion + 10  # Margen interno
-            pygame.draw.rect(pantalla, opcion_colores[i], (50, 200 + i * 60, 700, 50))
-            mostrar_texto(pantalla, texto_opcion, (texto_x, texto_y), fuente_menu, COLOR_NEGRO)
-            estado_comodin_bomba["bandera_bomba"] = False
-        #mostrar_texto(pantalla, texto_opcion, (60, 210 + i * 60), fuente_menu, COLOR_NEGRO)
+
+# def comodin_bomba()-> None:
+#     #Verifica el uso del comodin bomba.🌹
+#     for i, clave_opcion in enumerate(opciones):
+#         if estado_comodin_bomba["bandera_bomba"] == False:
+#             texto_opcion = preguntas[pregunta_actual][clave_opcion]
+#             x_opcion = margen_lateral
+#             y_opcion = y_opcion_inicial + i * (alto_opcion + espacio_entre_opciones)
+#             texto_x = x_opcion + 10  # Margen interno para el texto
+#             texto_y = y_opcion + 10  # Margen interno
+#             pygame.draw.rect(pantalla, opcion_colores[i], (50, 200 + i * 60, 700, 50))
+#             mostrar_texto(pantalla, texto_opcion, (texto_x, texto_y), fuente_menu, COLOR_BLANCO)
+#         else:
+#             desactivar_dos_respuestas(pregunta_actual, preguntas)
+#             texto_opcion = preguntas[pregunta_actual][clave_opcion]
+#             x_opcion = margen_lateral
+#             y_opcion = y_opcion_inicial + i * (alto_opcion + espacio_entre_opciones)
+#             texto_x = x_opcion + 10  # Margen interno para el texto
+#             texto_y = y_opcion + 10  # Margen interno
+#             pygame.draw.rect(pantalla, opcion_colores[i], (50, 200 + i * 60, 700, 50))
+#             mostrar_texto(pantalla, texto_opcion, (texto_x, texto_y), fuente_menu, COLOR_NEGRO)
+#             estado_comodin_bomba["bandera_bomba"] = False
+#         #mostrar_texto(pantalla, texto_opcion, (60, 210 + i * 60), fuente_menu, COLOR_NEGRO)
 
 def mostar_mensaje_resultado(pantalla):
     if mensaje_resultado:
@@ -286,8 +298,11 @@ def reloj(pantalla):
 def siguiente_pregunta():
     global mostrar_respuesta, pregunta_actual
     #todo# Cambiar a la siguiente pregunta después de 2 segundos
+    if estado_comodin_saltar["bandera_saltar"] == True:
+            pregunta_actual = (pregunta_actual + 1) % len(preguntas)# Salta a la siguiente pregunta
+            estado_comodin_saltar["bandera_saltar"] = False
     if mostrar_respuesta and pygame.time.get_ticks() - temporizador > 1000:
         pregunta_actual = (pregunta_actual + 1) % len(preguntas)
         opcion_colores = [COLOR_AZUL] * 4  # Reiniciar colores
         mensaje_resultado = ""
-        mostrar_respuesta = False 
+        mostrar_respuesta = False

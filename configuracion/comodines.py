@@ -3,7 +3,7 @@ import random
 import json
 import csv
 from .constantes import *
-from .funciones import crear_boton, cambiar_boton, leer_csv
+from .funciones import crear_boton, cambiar_boton, leer_csv, mostrar_texto
 from .jugar import *
 from .estado import *
 
@@ -31,11 +31,16 @@ puntos_configuraciones = configuraciones["puntos_acierto"]
 def puntos_doble_puntuacion(configuraciones):
     if estado_comodin_doble_puntuacion["bandera_doble_puntuacion"] == True:
         configuraciones["puntos_acierto"] = puntos_configuraciones * 2
+    else:
+        configuraciones["puntos_acierto"] = puntos_configuraciones
     
     return configuraciones["puntos_acierto"]
 
+def saltar_pregunta(pregunta_actual, preguntas):
+    pregunta_actual = (pregunta_actual + 1) % len(preguntas)
+
 #Funcion para el comodin de eliminar 2 respuestas incorrectas.🌹
-def desactivar_dos_respuestas(pregunta_actual,preguntas):
+def desactivar_dos_respuestas(pregunta_actual, preguntas):
     respuestas = ["respuesta_1", "respuesta_2", "respuesta_3", "respuesta_4"]
     respuesta_correcta = preguntas[pregunta_actual]["respuesta_correcta"]
     incorrectas = []
@@ -49,18 +54,6 @@ def desactivar_dos_respuestas(pregunta_actual,preguntas):
 
     for respuesta in desactivar_distintas:
         pregunta[respuesta] = ""
-
-def segunda_chance(pregunta_actual,preguntas):
-    respuestas = ["respuesta_1", "respuesta_2", "respuesta_3", "respuesta_4"]
-    respuesta_correcta = preguntas[pregunta_actual]["respuesta_correcta"]
-    pregunta = preguntas[pregunta_actual]
-
-    if pregunta[respuesta] != respuesta_correcta and estado_uso_comodin_segunda_chance["bandera_uso_segunda_chance"] == True:
-            for respuesta in respuestas:
-                incorrecta = respuesta_seleccionada
-                sacar_respuesta = incorrecta
-                pregunta[sacar_respuesta] = ""
-
 
 #Funcion para abrir la ventana de los comodines.🌹
 def mostrar_comodines(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event]) -> str:
@@ -115,6 +108,9 @@ def mostrar_comodines(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Eve
     
     #dibuja el fondo.👻
     pantalla.blit(fondo, (0,0))
+
+    mostrar_texto(pantalla,f"comodines: {configuraciones["comodines"]}",(320,15),fuente,COLOR_BLANCO)
+
 
     #dibujo los comodines 👻
     boton_bomba["rectangulo"] = pantalla.blit(boton_bomba["superficie"],(55,125))
