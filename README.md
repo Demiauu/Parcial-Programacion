@@ -23,6 +23,6 @@ GitHub para control de versiones y colaboración.
 
 #Créditos
 Proyecto realizado por:
-Demian Toscano
-Demian Paz Gamboa
-Eba quinteros
+-Demian Toscano.
+-Demian Paz Gamboa.
+-Eva quinteros.
