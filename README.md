@@ -7,19 +7,19 @@ El objetivo del juego es responder correctamente una serie de preguntas para dem
 Lenguaje: [Python] 
 
 #Manejo de archivos:
-.json para almacenar y gestionar los datos de las preguntas.
-.csv para registrar puntajes de los jugadores.
+-json para almacenar y gestionar los datos de las preguntas.
+-csv para registrar puntajes de los jugadores.
 
 #Herramientas: 
 GitHub para control de versiones y colaboración.
 
-#Características
-.Interfaz gráfica interactiva que utiliza mouse y teclado para la navegación.
-.Preguntas de opción múltiple cargadas dinámicamente desde archivos .json.
-.Sistema de puntaje basado en las respuestas, con registros guardados en .csv.
-.Implementación de comodines para asistir al jugador durante el quiz.
-.Guardado y carga automática de progresos y puntajes.
-.Experiencia de usuario enfocada en dinamismo y facilidad de uso.
+#Características:
+-Interfaz gráfica interactiva que utiliza mouse y teclado para la navegación.
+-Preguntas de opción múltiple cargadas dinámicamente desde archivos .json.
+-Sistema de puntaje basado en las respuestas, con registros guardados en .csv.
+-Implementación de comodines para asistir al jugador durante el quiz.
+-Guardado y carga automática de progresos y puntajes.
+-Experiencia de usuario enfocada en dinamismo y facilidad de uso.
 
 #Créditos
 Proyecto realizado por:
